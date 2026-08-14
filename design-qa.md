@@ -114,4 +114,34 @@ The combined before/after image shows that both large red fields are removed whi
 - Copy and content: passed; all navigation and archive copy is unchanged.
 - Interactions and accessibility: passed; index open/close and chapter navigation remain functional, with strong light-on-dark contrast. Mobile `scrollWidth` and `clientWidth` are both 390 px, and the browser console has no warnings or errors.
 
+## Bilingual Wendao-Style Drawer Update
+
+### Evidence
+
+- Source visual truth: `docs/reference-wendao-drawer.png`, captured from the live Three-Slow Wendao drawer at 390 x 844.
+- Chinese mobile implementation: `docs/implementation-bilingual-drawer-zh-mobile.png` at 390 x 844.
+- English mobile implementation: `docs/implementation-bilingual-drawer-en-mobile.png` at 390 x 844.
+- English desktop implementation: `docs/implementation-bilingual-drawer-en-desktop.png` at 1280 x 720.
+- Side-by-side comparison input: `docs/comparison-wendao-drawer-onelaser.png`.
+- Device scale factor: 1.
+- Density normalization: the Wendao reference and Chinese OneLaser implementation were normalized to the same 390 x 844 pixel and CSS viewport before comparison.
+- States: right-side drawer open; Chinese and English language states; default dark portfolio theme.
+
+### Findings and Comparison History
+
+#### Reference adaptation pass — passed
+
+The OneLaser drawer preserves the Wendao reference's defining structure: blurred background separation, a right-side scrollable panel, compact brand/title header, close control, clear settings/navigation rows, and a long-form `Works along the way / 沿途所作` section. Product-specific content was intentionally adapted: Wendao's life manual, reading mode, and reading-size controls become OneLaser project chapters, case information, contact, and feedback.
+
+No actionable P0, P1, or P2 differences remain. The darker graphite material and red micro-accents are intentional OneLaser brand adaptations rather than fidelity drift.
+
+### Required Fidelity Surfaces
+
+- Fonts and typography: passed; the English drawer retains Barlow Condensed and IBM Plex Mono, while Chinese display text uses the system CJK stack with explicit size and line-height tuning.
+- Spacing and layout rhythm: passed; mobile rows, dividers, utility links, and work cards follow the Wendao drawer's dense vertical cadence. The desktop drawer is capped at 540 px.
+- Colors and visual tokens: passed; warm graphite, warm white, muted gray, and small red signals maintain OneLaser's restrained premium system without returning to large red fields.
+- Image quality and asset fidelity: passed; the drawer adds no fake or replacement imagery, and the obscured page retains the supplied OneLaser artwork.
+- Copy and content: passed; the full page, drawer navigation, utility content, archive placeholders, captions, and alt text switch between complete Chinese and English versions.
+- Interactions and accessibility: passed; language selection persists through reload, the header and drawer language controls work, Escape and close-button dismissal work, the backdrop is labelled, `aria-modal` is present, project navigation closes the drawer, five external work links render, and clean-tab browser logs contain no warnings or errors.
+
 final result: passed
