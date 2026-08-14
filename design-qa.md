@@ -74,4 +74,44 @@ No actionable P0, P1, or P2 findings remain.
 - [x] Console checked.
 - [x] Build and hosting-package tests passed.
 
+## Browser Annotation Update — Red Surface Reduction
+
+### Evidence
+
+- Source visual truth: `docs/source-before-index-red.png` and `docs/source-before-archive-red.png`, captured from the published site before the requested change.
+- Revised implementation: `docs/implementation-index-graphite-1140x1225.png` and `docs/implementation-archive-graphite.png`.
+- Mobile implementation: `docs/implementation-index-graphite-mobile.png` at 390 x 844.
+- Combined comparison input: `docs/comparison-red-to-graphite.png`.
+- Source and implementation pixels: 1140 x 1225 for each state.
+- CSS viewport: 1140 x 1225.
+- Device scale factor: 1.
+- Density normalization: none required; captures use the same browser, viewport, CSS size, and pixel density.
+- States: project index open; archive section positioned at 445 px from the viewport top with the brochure tail and footer visible.
+
+### Findings and Comparison History
+
+#### Annotation baseline — blocked
+
+- [P1] The full-viewport red index overlay created sustained high visual intensity and overpowered the navigation hierarchy.
+- [P1] The solid-red archive block created a second large high-intensity interruption immediately after the dark brochure sequence.
+
+Fixes:
+
+- Replaced the overlay surface with warm graphite `#11100f`, warm-white navigation type, muted arrows and hairlines, and small red index markers.
+- Replaced the archive surface with raised graphite `#191714`, warm-white display type, muted supporting copy, and a small red chapter marker.
+- Preserved the original layout, typography, copy, navigation, motion, links, section dimensions, and responsive behavior.
+
+#### Revised comparison — passed
+
+The combined before/after image shows that both large red fields are removed while the OneLaser redline signature remains visible at a much smaller visual weight. No actionable P0, P1, or P2 issues remain.
+
+### Required Fidelity Surfaces
+
+- Fonts and typography: passed; the existing Barlow Condensed, IBM Plex Mono, and Inter hierarchy is unchanged.
+- Spacing and layout rhythm: passed; paired captures align at the same viewport and section positions with no reflow or horizontal overflow.
+- Colors and visual tokens: passed; the new graphite surfaces reduce glare while preserving warm white, muted gray, and restrained red accents.
+- Image quality and asset fidelity: passed; surrounding brochure imagery is unchanged and remains sharp.
+- Copy and content: passed; all navigation and archive copy is unchanged.
+- Interactions and accessibility: passed; index open/close and chapter navigation remain functional, with strong light-on-dark contrast. Mobile `scrollWidth` and `clientWidth` are both 390 px, and the browser console has no warnings or errors.
+
 final result: passed
