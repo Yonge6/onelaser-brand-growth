@@ -142,6 +142,44 @@ No actionable P0, P1, or P2 differences remain. The darker graphite material and
 - Colors and visual tokens: passed; warm graphite, warm white, muted gray, and small red signals maintain OneLaser's restrained premium system without returning to large red fields.
 - Image quality and asset fidelity: passed; the drawer adds no fake or replacement imagery, and the obscured page retains the supplied OneLaser artwork.
 - Copy and content: passed; the full page, drawer navigation, utility content, archive placeholders, captions, and alt text switch between complete Chinese and English versions.
-- Interactions and accessibility: passed; language selection persists through reload, the header and drawer language controls work, Escape and close-button dismissal work, the backdrop is labelled, `aria-modal` is present, project navigation closes the drawer, five external work links render, and clean-tab browser logs contain no warnings or errors.
+- Interactions and accessibility: passed; fresh loads start in English, the header and drawer language controls switch the current session, Escape and close-button dismissal work, the backdrop is labelled, `aria-modal` is present, project navigation closes the drawer, five external work links render, and clean-tab browser logs contain no warnings or errors.
+
+final result: passed
+
+## Drawer Subpages, Campaign Lightbox, and Magazine Library
+
+### Evidence
+
+- Wendao contact reference: `docs/reference-wendao-contact-subpage.png`.
+- OneLaser contact subpage: `docs/implementation-contact-subpage-en.png`.
+- Previous published brochure section: `docs/source-before-brochure-library.png`.
+- Final Chinese brochure library: `docs/implementation-brochure-library-zh-final.png`.
+- Magazine spread reader: `docs/implementation-magazine-reader-spread.png`.
+- Mobile single-page reader: `docs/implementation-magazine-reader-mobile.png`.
+- Campaign image lightbox: `docs/implementation-campaign-lightbox.png`.
+- Final combined comparison input: `docs/comparison-final-iteration.png`.
+- Comparison viewport: 1553 x 1225 CSS pixels at device scale factor 1.
+
+### Findings and Fixes
+
+- The contact utility previously opened an email client. It now opens a Wendao-matched drawer subpage with a back control and seven complete contact rows; the WeChat Channels row opens the supplied QR image. The feedback row was removed completely.
+- The About utility now opens its own drawer subpage with case narrative and role, scope, and year facts.
+- The header is fixed with a restrained graphite surface and remains legible over light and dark sections. Fresh page loads always begin in English; Chinese remains available as an in-session switch.
+- Campaign imagery now has an in-card hover enlargement and a full-screen lightbox with previous, next, close, counter, and keyboard handlers. The tested source image loads at its full 3840 px natural width.
+- The brochure section now treats All-in-One as the featured master volume and displays four real series brochures: Cobra, Hydra Gen2, VertiGo, and X Series.
+- The reader uses all 52 rendered pages from the five supplied PDFs. The cover is presented as a single volume; internal pages open as a double-page magazine spread with a central spine, directional page-turn animation, clickable page edges, navigation controls, progress, keyboard handlers, and direct PDF download. Mobile uses a single-page reading mode.
+- Chinese typography now matches Wendao's system: Noto Serif SC 600 for display titles and Noto Sans SC 400/500 for body text. All four Chinese fonts are bundled locally.
+
+### Verification
+
+- Default-language reload: English before interaction and after reload; Chinese toggle verified independently.
+- Fixed header: computed `position: fixed`, top edge `0`, and no horizontal overflow at 1440 px or 1553 px.
+- Drawer: feedback absent; About and Contact remain inside the drawer; contact rows `7`; QR natural size `686 px`.
+- Campaign lightbox: three launch controls; image counter advanced from `01 / 03` to `02 / 03`; close restored the page.
+- Magazine reader: All-in-One cover showed `Page 1 of 20`; next action produced a two-image spread showing `Page 2-3 of 20`; both rendered pages measured `910 x 1287` pixels.
+- Brochure library: four series cards plus the featured All-in-One volume; no horizontal overflow.
+- Chinese typography: browser confirmed Noto Serif SC Local at weight 600 and Noto Sans SC Local at weight 400; both fonts reported loaded.
+- Build and hosting tests: passed; four worker tests passed; `git diff --check` passed.
+- Visual comparison: the contact flow preserves Wendao's hierarchy and row density while adapting to OneLaser graphite. The brochure redesign clearly promotes All-in-One and exposes the product family without crowding. No actionable P0, P1, or P2 issues remain.
 
 final result: passed

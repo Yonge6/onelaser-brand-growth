@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  ChatCircle,
+  CaretLeft,
+  CaretRight,
   DownloadSimple,
   EnvelopeSimple,
   Info,
   List,
+  MagnifyingGlassPlus,
+  QrCode,
   X,
 } from "@phosphor-icons/react";
 
@@ -26,11 +30,26 @@ const translations = {
       about: "About this case",
       aboutNote: "Strategy, creative direction and system thinking",
       contact: "Contact Elian",
-      contactNote: "Email and collaboration enquiries",
-      feedback: "Leave a note",
-      feedbackNote: "Tell me what could feel clearer",
+      contactNote: "Website, email and social profiles",
       works: "Works along the way",
       worksNote: "See the world, know yourself, and learn to see beauty.",
+      back: "Back to project index",
+      aboutKicker: "OneLaser / Brand & Growth Design",
+      aboutTitle: "One system, from product truth to market impact.",
+      aboutBody: [
+        "This case study shows how product truth becomes a connected brand, web, campaign and publication system.",
+        "Elian led the creative direction and system design, balancing engineering credibility with a premium international visual language.",
+      ],
+      aboutFacts: [["Role", "Brand & Growth Design"], ["Scope", "Strategy / Web / Campaign / Print"], ["Year", "2026"]],
+      contactKicker: "Website / Email / Social",
+      contactTitle: "Start a conversation.",
+      contactBody: "For collaborations, creative direction and product storytelling, reach Elian through any channel below.",
+      openProfile: "Open profile",
+      wechatChannels: "WeChat Channels",
+      viewQr: "View QR code",
+      qrTitle: "WeChat Channels",
+      qrNote: "Scan to open Elian's WeChat Channels profile.",
+      closeQr: "Close QR code",
     },
     hero: {
       eyebrow: "OneLaser / Brand & Growth System",
@@ -64,12 +83,24 @@ const translations = {
       title: ["One platform.", "Distinct worlds."],
       body: "A modular campaign language flexes from industrial performance to education and maker-led storytelling, while preserving OneLaser's unmistakable redline signature.",
       captions: ["Performance", "Maker economy", "Education"],
+      enlarge: "Enlarge image",
+      close: "Close image",
+      previous: "Previous image",
+      next: "Next image",
     },
     brochure: {
       label: "Product brochure",
-      title: "Complex engineering, made clear on paper.",
-      action: "View brochure",
-      captions: ["All-in-One Product Brochure / Cover", "Engineering narrative / 02", "Application ecosystem / 03"],
+      title: "A product library, designed to be read.",
+      body: "Start with the All-in-One master brochure, then open a focused volume for each product family.",
+      featured: "Featured / All-in-One",
+      collection: "Product series",
+      read: "Read digital book",
+      download: "Download PDF",
+      close: "Close reader",
+      previous: "Previous pages",
+      next: "Next pages",
+      page: "Page",
+      of: "of",
     },
     archive: {
       label: "04 / Next chapter",
@@ -92,11 +123,26 @@ const translations = {
       about: "关于本案例",
       aboutNote: "策略、创意指导与系统设计",
       contact: "联系 Elian",
-      contactNote: "邮箱与合作洽谈",
-      feedback: "留下回响",
-      feedbackNote: "告诉我，哪里还可以更清楚",
+      contactNote: "网站、邮箱与社交账号",
       works: "沿途所作",
       worksNote: "观世界，识自己，也学习看见美。",
+      back: "返回项目抽屉",
+      aboutKicker: "OneLaser / 品牌与增长设计",
+      aboutTitle: "从产品事实到市场影响力，建立一套完整系统。",
+      aboutBody: [
+        "本案例呈现产品事实如何被转化为彼此连接的品牌、网页、推广与出版系统。",
+        "Elian 负责创意指导与系统设计，在工程可信度与国际化、高端的视觉语言之间建立平衡。",
+      ],
+      aboutFacts: [["角色", "品牌与增长设计"], ["范围", "策略 / 网页 / 推广 / 印刷"], ["年份", "2026"]],
+      contactKicker: "网站 / 邮箱 / 社交账号",
+      contactTitle: "开始一次交流。",
+      contactBody: "有关合作、创意指导与产品叙事，可通过以下任一方式联系 Elian。",
+      openProfile: "打开主页",
+      wechatChannels: "视频号",
+      viewQr: "查看二维码",
+      qrTitle: "微信视频号",
+      qrNote: "微信扫码，打开 Elian 的视频号主页。",
+      closeQr: "关闭二维码",
     },
     hero: {
       eyebrow: "OneLaser / 品牌与增长系统",
@@ -127,12 +173,24 @@ const translations = {
       title: ["一个平台。", "多种世界。"],
       body: "模块化的推广语言可在工业性能、教育与创客叙事之间灵活延展，同时保留 OneLaser 标志性的红线基因。",
       captions: ["性能", "创客经济", "教育"],
+      enlarge: "放大图片",
+      close: "关闭图片",
+      previous: "上一张",
+      next: "下一张",
     },
     brochure: {
       label: "产品画册",
-      title: "让复杂工程在纸面上清晰易读。",
-      action: "查看画册",
-      captions: ["一体化产品画册 / 封面", "工程叙事 / 02", "应用生态 / 03"],
+      title: "一套可以真正翻阅的产品图书馆。",
+      body: "先从最重要的 All-in-One 总画册开始，再进入每个产品系列的独立分册。",
+      featured: "重点推荐 / All-in-One",
+      collection: "产品系列",
+      read: "翻阅电子书",
+      download: "下载 PDF",
+      close: "关闭阅读器",
+      previous: "上一页",
+      next: "下一页",
+      page: "第",
+      of: "/",
     },
     archive: {
       label: "04 / 下一章",
@@ -162,6 +220,23 @@ const workData = {
   ],
 };
 
+const brochureData = {
+  en: [
+    { slug: "all-in-one", name: "All-in-One", eyebrow: "Master portfolio", description: "The complete OneLaser product and application ecosystem in one definitive volume.", pages: 20, pdf: "assets/onelaser-brand-product-brochure.pdf" },
+    { slug: "cobra", name: "Cobra Series", eyebrow: "Peak glass laser", description: "A focused guide to the accessible, precision-led Cobra family.", pages: 8, pdf: "assets/brochures/cobra.pdf" },
+    { slug: "hydra-gen2", name: "Hydra Gen2", eyebrow: "Performance laser", description: "The engineering story behind OneLaser's professional performance platform.", pages: 8, pdf: "assets/brochures/hydra-gen2.pdf" },
+    { slug: "vertigo", name: "VertiGo", eyebrow: "Rotary laser", description: "A specialist volume for high-margin drinkware and cylindrical production.", pages: 8, pdf: "assets/brochures/vertigo.pdf" },
+    { slug: "x-series", name: "X Series", eyebrow: "Desktop laser engraver", description: "The compact desktop system, explained from product promise to application.", pages: 8, pdf: "assets/brochures/x-series.pdf" },
+  ],
+  zh: [
+    { slug: "all-in-one", name: "All-in-One", eyebrow: "品牌与产品总画册", description: "一册完整呈现 OneLaser 的产品矩阵、工程优势与应用生态。", pages: 20, pdf: "assets/onelaser-brand-product-brochure.pdf" },
+    { slug: "cobra", name: "Cobra 系列", eyebrow: "峰值玻璃激光器", description: "围绕 Cobra 产品家族的性能、易用性与应用场景展开。", pages: 8, pdf: "assets/brochures/cobra.pdf" },
+    { slug: "hydra-gen2", name: "Hydra Gen2", eyebrow: "专业性能激光器", description: "完整讲述专业级性能平台背后的工程设计与产品价值。", pages: 8, pdf: "assets/brochures/hydra-gen2.pdf" },
+    { slug: "vertigo", name: "VertiGo", eyebrow: "旋转激光器", description: "面向杯具与圆柱体高价值生产场景的专业分册。", pages: 8, pdf: "assets/brochures/vertigo.pdf" },
+    { slug: "x-series", name: "X 系列", eyebrow: "桌面激光雕刻机", description: "从产品主张到实际应用，清晰介绍紧凑型桌面系统。", pages: 8, pdf: "assets/brochures/x-series.pdf" },
+  ],
+};
+
 function buildChapters(t) {
   return [
     { number: "01", label: t.chapters[0], href: "#web", image: "assets/xrf-hero.png" },
@@ -185,11 +260,34 @@ function IndexOverlay({ open, onClose, language, onLanguageChange }) {
   const t = translations[language];
   const chapters = buildChapters(t);
   const works = workData[language];
+  const [view, setView] = useState("home");
+  const [qrOpen, setQrOpen] = useState(false);
+  const drawerScrollRef = useRef(null);
+  const contacts = [
+    ["WonderElian", "wonderelian.com", "https://wonderelian.com/"],
+    [language === "en" ? "Email" : "邮箱", "hustyy986@gmail.com", "mailto:hustyy986@gmail.com"],
+    [language === "en" ? "RED" : "小红书", t.drawer.openProfile, "https://xhslink.cn/m/3OF5qu7Peui"],
+    [language === "en" ? "Douyin" : "抖音", t.drawer.openProfile, "https://v.douyin.com/d9L1thkye0Y/"],
+    ["X", "@yongyuan1", "https://x.com/yongyuan1?s=11"],
+    ["TikTok", "@wonderelian", "https://www.tiktok.com/@wonderelian?_r=1&_t=ZP-98Tvaldfrpe"],
+  ];
+
+  useEffect(() => {
+    if (!open) return;
+    setView("home");
+    setQrOpen(false);
+  }, [open]);
+
+  useEffect(() => {
+    drawerScrollRef.current?.scrollTo({ top: 0, behavior: "instant" });
+  }, [view]);
 
   useEffect(() => {
     if (!open) return undefined;
     const onKeyDown = (event) => {
-      if (event.key === "Escape") onClose();
+      if (event.key !== "Escape") return;
+      if (qrOpen) setQrOpen(false);
+      else onClose();
     };
     document.body.classList.add("menu-open");
     window.addEventListener("keydown", onKeyDown);
@@ -197,18 +295,27 @@ function IndexOverlay({ open, onClose, language, onLanguageChange }) {
       document.body.classList.remove("menu-open");
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [open, onClose]);
+  }, [open, onClose, qrOpen]);
 
   if (!open) return null;
+
+  const viewTitle = view === "about" ? t.drawer.about : view === "contact" ? t.drawer.contact : t.drawer.title;
 
   return (
     <div className="drawer-layer">
       <button className="drawer-backdrop" type="button" onClick={onClose} aria-label={t.close} />
       <aside className="index-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
         <header className="drawer-header">
-          <div>
-            <span>{t.drawer.eyebrow}</span>
-            <h2 id="drawer-title">{t.drawer.title}</h2>
+          <div className="drawer-heading">
+            {view !== "home" ? (
+              <button className="drawer-back" type="button" onClick={() => setView("home")} aria-label={t.drawer.back}>
+                <ArrowLeft weight="light" aria-hidden="true" />
+              </button>
+            ) : null}
+            <div>
+              <span>{t.drawer.eyebrow}</span>
+              <h2 id="drawer-title">{viewTitle}</h2>
+            </div>
           </div>
           <div className="drawer-header-actions">
             <button className="language-toggle" type="button" onClick={onLanguageChange} aria-label={language === "en" ? "切换到中文" : "Switch to English"}>
@@ -220,56 +327,97 @@ function IndexOverlay({ open, onClose, language, onLanguageChange }) {
           </div>
         </header>
 
-        <div className="drawer-scroll">
-          <p className="drawer-summary">{t.drawer.summary}</p>
+        <div className="drawer-scroll" ref={drawerScrollRef}>
+          {view === "home" ? (
+            <>
+              <p className="drawer-summary">{t.drawer.summary}</p>
 
-          <nav className="drawer-chapters" aria-label={t.drawer.title}>
-            {chapters.map((chapter) => (
-              <a key={chapter.number} href={chapter.href} onClick={onClose}>
-                <span>{chapter.number}</span>
-                <strong>{chapter.label}</strong>
-                <ArrowRight weight="light" aria-hidden="true" />
-              </a>
-            ))}
-          </nav>
+              <nav className="drawer-chapters" aria-label={t.drawer.title}>
+                {chapters.map((chapter) => (
+                  <a key={chapter.number} href={chapter.href} onClick={onClose}>
+                    <span>{chapter.number}</span>
+                    <strong>{chapter.label}</strong>
+                    <ArrowRight weight="light" aria-hidden="true" />
+                  </a>
+                ))}
+              </nav>
 
-          <nav className="drawer-utility" aria-label={language === "en" ? "More information" : "更多信息"}>
-            <a href="#overview" onClick={onClose}>
-              <Info weight="light" aria-hidden="true" />
-              <span><strong>{t.drawer.about}</strong><small>{t.drawer.aboutNote}</small></span>
-              <ArrowRight weight="light" aria-hidden="true" />
-            </a>
-            <a href="mailto:hustyy986@gmail.com">
-              <EnvelopeSimple weight="light" aria-hidden="true" />
-              <span><strong>{t.drawer.contact}</strong><small>{t.drawer.contactNote}</small></span>
-              <ArrowRight weight="light" aria-hidden="true" />
-            </a>
-            <a href={`mailto:hustyy986@gmail.com?subject=${encodeURIComponent(language === "en" ? "OneLaser portfolio feedback" : "OneLaser 作品集反馈")}`}>
-              <ChatCircle weight="light" aria-hidden="true" />
-              <span><strong>{t.drawer.feedback}</strong><small>{t.drawer.feedbackNote}</small></span>
-              <ArrowRight weight="light" aria-hidden="true" />
-            </a>
-          </nav>
+              <nav className="drawer-utility" aria-label={language === "en" ? "More information" : "更多信息"}>
+                <button type="button" onClick={() => setView("about")}>
+                  <Info weight="light" aria-hidden="true" />
+                  <span><strong>{t.drawer.about}</strong><small>{t.drawer.aboutNote}</small></span>
+                  <ArrowRight weight="light" aria-hidden="true" />
+                </button>
+                <button type="button" onClick={() => setView("contact")}>
+                  <EnvelopeSimple weight="light" aria-hidden="true" />
+                  <span><strong>{t.drawer.contact}</strong><small>{t.drawer.contactNote}</small></span>
+                  <ArrowRight weight="light" aria-hidden="true" />
+                </button>
+              </nav>
 
-          <section className="drawer-works" aria-labelledby="drawer-works-title">
-            <header>
-              <span id="drawer-works-title">{t.drawer.works}</span>
-              <p>{t.drawer.worksNote}</p>
-            </header>
-            <div className="drawer-work-list">
-              {works.map(([name, tagline, description, href], index) => (
-                <a className="drawer-work-card" href={href} target="_blank" rel="noreferrer" key={name}>
-                  <span className="drawer-work-index">{language === "en" ? `0${index + 1}` : ["一", "二", "三", "四", "五"][index]}</span>
-                  <span className="drawer-work-copy">
-                    <span><strong>{name}</strong><em>{tagline}</em></span>
-                    <small>{description}</small>
-                  </span>
-                  <ArrowUpRight weight="light" aria-hidden="true" />
-                </a>
-              ))}
-            </div>
-          </section>
+              <section className="drawer-works" aria-labelledby="drawer-works-title">
+                <header>
+                  <span id="drawer-works-title">{t.drawer.works}</span>
+                  <p>{t.drawer.worksNote}</p>
+                </header>
+                <div className="drawer-work-list">
+                  {works.map(([name, tagline, description, href], index) => (
+                    <a className="drawer-work-card" href={href} target="_blank" rel="noreferrer" key={name}>
+                      <span className="drawer-work-index">{language === "en" ? `0${index + 1}` : ["一", "二", "三", "四", "五"][index]}</span>
+                      <span className="drawer-work-copy">
+                        <span><strong>{name}</strong><em>{tagline}</em></span>
+                        <small>{description}</small>
+                      </span>
+                      <ArrowUpRight weight="light" aria-hidden="true" />
+                    </a>
+                  ))}
+                </div>
+              </section>
+            </>
+          ) : null}
+
+          {view === "about" ? (
+            <section className="drawer-detail" aria-labelledby="drawer-about-title">
+              <p className="drawer-detail-kicker">{t.drawer.aboutKicker}</p>
+              <h3 id="drawer-about-title">{t.drawer.aboutTitle}</h3>
+              <div className="drawer-detail-copy">
+                {t.drawer.aboutBody.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              </div>
+              <dl className="drawer-detail-facts">
+                {t.drawer.aboutFacts.map(([term, description]) => <div key={term}><dt>{term}</dt><dd>{description}</dd></div>)}
+              </dl>
+            </section>
+          ) : null}
+
+          {view === "contact" ? (
+            <section className="drawer-detail drawer-contact" aria-labelledby="drawer-contact-title">
+              <p className="drawer-detail-kicker">{t.drawer.contactKicker}</p>
+              <h3 id="drawer-contact-title">{t.drawer.contactTitle}</h3>
+              <p className="drawer-contact-intro">{t.drawer.contactBody}</p>
+              <div className="drawer-contact-list">
+                {contacts.map(([label, value, href]) => (
+                  <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined} key={label}>
+                    <span>{label}</span><strong>{value}</strong><ArrowUpRight weight="light" aria-hidden="true" />
+                  </a>
+                ))}
+                <button type="button" onClick={() => setQrOpen(true)}>
+                  <span>{t.drawer.wechatChannels}</span><strong>{t.drawer.viewQr}</strong><QrCode weight="light" aria-hidden="true" />
+                </button>
+              </div>
+            </section>
+          ) : null}
         </div>
+
+        {qrOpen ? (
+          <div className="drawer-qr-modal" role="dialog" aria-modal="true" aria-labelledby="drawer-qr-title">
+            <button className="drawer-qr-backdrop" type="button" onClick={() => setQrOpen(false)} aria-label={t.drawer.closeQr} />
+            <figure>
+              <button type="button" onClick={() => setQrOpen(false)} aria-label={t.drawer.closeQr}><X weight="light" aria-hidden="true" /></button>
+              <img src="assets/video-channel.jpg" alt={t.drawer.qrTitle} />
+              <figcaption><strong id="drawer-qr-title">{t.drawer.qrTitle}</strong><span>{t.drawer.qrNote}</span></figcaption>
+            </figure>
+          </div>
+        ) : null}
       </aside>
     </div>
   );
@@ -300,20 +448,145 @@ function ChapterStrip({ language }) {
   );
 }
 
+function CampaignLightbox({ image, index, total, onClose, onPrevious, onNext, t }) {
+  const closeRef = useRef(null);
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+      if (event.key === "ArrowLeft") onPrevious();
+      if (event.key === "ArrowRight") onNext();
+    };
+    document.body.classList.add("menu-open");
+    window.addEventListener("keydown", onKeyDown);
+    closeRef.current?.focus();
+    return () => {
+      document.body.classList.remove("menu-open");
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [onClose, onPrevious, onNext]);
+
+  return (
+    <div className="image-lightbox" role="dialog" aria-modal="true" aria-label={t.enlarge}>
+      <button className="lightbox-backdrop" type="button" onClick={onClose} aria-label={t.close} />
+      <div className="lightbox-toolbar">
+        <span>{String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
+        <button ref={closeRef} type="button" onClick={onClose} aria-label={t.close}><X weight="light" aria-hidden="true" /></button>
+      </div>
+      <button className="lightbox-nav is-previous" type="button" onClick={onPrevious} aria-label={t.previous}><CaretLeft weight="light" aria-hidden="true" /></button>
+      <figure>
+        <img src={image.src} alt={image.alt} />
+        <figcaption><span>{image.caption}</span><span>{String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}</span></figcaption>
+      </figure>
+      <button className="lightbox-nav is-next" type="button" onClick={onNext} aria-label={t.next}><CaretRight weight="light" aria-hidden="true" /></button>
+    </div>
+  );
+}
+
+function EbookReader({ book, t, onClose }) {
+  const [pageIndex, setPageIndex] = useState(0);
+  const [compact, setCompact] = useState(false);
+  const [turnDirection, setTurnDirection] = useState("forward");
+  const closeRef = useRef(null);
+  const pageSrc = (index) => `assets/brochures/${book.slug}/page-${String(index + 1).padStart(2, "0")}.jpg`;
+  const step = compact ? 1 : 2;
+  const visibleEnd = Math.min(pageIndex + (compact || pageIndex === 0 ? 0 : 1), book.pages - 1);
+  const canGoPrevious = pageIndex > 0;
+  const canGoNext = visibleEnd < book.pages - 1;
+  const goPrevious = () => {
+    setTurnDirection("backward");
+    setPageIndex((current) => current <= 1 ? 0 : Math.max(1, current - step));
+  };
+  const goNext = () => {
+    setTurnDirection("forward");
+    setPageIndex((current) => {
+      if (compact) return Math.min(book.pages - 1, current + 1);
+      if (current === 0) return 1;
+      return Math.min(book.pages - 1, current + 2);
+    });
+  };
+
+  useEffect(() => {
+    setPageIndex(0);
+    closeRef.current?.focus();
+  }, [book.slug]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 700px)");
+    const sync = () => setCompact(media.matches);
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+      if (event.key === "ArrowLeft" && canGoPrevious) goPrevious();
+      if (event.key === "ArrowRight" && canGoNext) goNext();
+    };
+    document.body.classList.add("menu-open");
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.classList.remove("menu-open");
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  });
+
+  return (
+    <div className="ebook-reader" role="dialog" aria-modal="true" aria-labelledby="ebook-title">
+      <div className="ebook-reader-bar">
+        <div><span>{book.eyebrow}</span><strong id="ebook-title">{book.name}</strong></div>
+        <div className="ebook-reader-actions">
+          <a href={book.pdf} target="_blank" rel="noreferrer">{t.download}<DownloadSimple weight="light" aria-hidden="true" /></a>
+          <button ref={closeRef} type="button" onClick={onClose} aria-label={t.close}><X weight="light" aria-hidden="true" /></button>
+        </div>
+      </div>
+
+      <div className={`ebook-stage ${pageIndex === 0 ? "is-cover" : "is-spread"}`}>
+        <button className="ebook-nav is-previous" type="button" onClick={goPrevious} disabled={!canGoPrevious} aria-label={t.previous}><CaretLeft weight="light" aria-hidden="true" /></button>
+        <div className={`ebook-book turn-${turnDirection}`} key={`${book.slug}-${pageIndex}-${compact ? "compact" : "spread"}`} aria-live="polite">
+          <button className="ebook-page-button is-left" type="button" onClick={pageIndex === 0 || compact ? (canGoNext ? goNext : undefined) : (canGoPrevious ? goPrevious : undefined)} aria-label={pageIndex === 0 || compact ? t.next : t.previous}>
+            <img className="ebook-page" src={pageSrc(pageIndex)} alt={`${book.name} — ${t.page} ${pageIndex + 1}`} />
+          </button>
+          {!compact && pageIndex > 0 && pageIndex + 1 < book.pages ? (
+            <button className="ebook-page-button is-right" type="button" onClick={canGoNext ? goNext : undefined} aria-label={t.next}>
+              <img className="ebook-page" src={pageSrc(pageIndex + 1)} alt={`${book.name} — ${t.page} ${pageIndex + 2}`} />
+            </button>
+          ) : null}
+        </div>
+        <button className="ebook-nav is-next" type="button" onClick={goNext} disabled={!canGoNext} aria-label={t.next}><CaretRight weight="light" aria-hidden="true" /></button>
+      </div>
+
+      <div className="ebook-progress">
+        <span>{t.page} {pageIndex + 1}{visibleEnd > pageIndex ? `–${visibleEnd + 1}` : ""} {t.of} {book.pages}</span>
+        <div><span style={{ width: `${((visibleEnd + 1) / book.pages) * 100}%` }} /></div>
+      </div>
+    </div>
+  );
+}
+
 export function App() {
   const [indexOpen, setIndexOpen] = useState(false);
-  const [language, setLanguage] = useState(() => {
-    if (typeof window === "undefined") return "en";
-    return window.localStorage.getItem("onelaser-language") === "zh" ? "zh" : "en";
-  });
+  const [language, setLanguage] = useState("en");
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [activeBrochure, setActiveBrochure] = useState(null);
   const t = translations[language];
+  const brochures = brochureData[language];
+  const campaignImages = [
+    { src: "assets/xrf-hero.png", alt: language === "en" ? "Dark OneLaser XRF Gen2 campaign visual" : "OneLaser XRF Gen2 深色推广视觉", caption: t.campaign.captions[0] },
+    { src: "assets/xrf-workshop.png", alt: language === "en" ? "Warm OneLaser XRF Gen2 maker campaign visual" : "OneLaser XRF Gen2 创客推广视觉", caption: t.campaign.captions[1] },
+    { src: "assets/hydra-gen2-education.png", alt: language === "en" ? "OneLaser Hydra Gen2 education campaign visual" : "OneLaser Hydra Gen2 教育推广视觉", caption: t.campaign.captions[2] },
+  ];
 
   useEffect(() => {
     document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
-    window.localStorage.setItem("onelaser-language", language);
   }, [language]);
 
   const toggleLanguage = () => setLanguage((current) => current === "en" ? "zh" : "en");
+  const closeLightbox = () => setLightboxIndex(null);
+  const showPreviousCampaignImage = () => setLightboxIndex((current) => (current - 1 + campaignImages.length) % campaignImages.length);
+  const showNextCampaignImage = () => setLightboxIndex((current) => (current + 1) % campaignImages.length);
 
   return (
     <main id="top">
@@ -323,6 +596,18 @@ export function App() {
         language={language}
         onLanguageChange={toggleLanguage}
       />
+      {lightboxIndex !== null ? (
+        <CampaignLightbox
+          image={campaignImages[lightboxIndex]}
+          index={lightboxIndex}
+          total={campaignImages.length}
+          onClose={closeLightbox}
+          onPrevious={showPreviousCampaignImage}
+          onNext={showNextCampaignImage}
+          t={t.campaign}
+        />
+      ) : null}
+      {activeBrochure ? <EbookReader book={activeBrochure} t={t.brochure} onClose={() => setActiveBrochure(null)} /> : null}
 
       <header className="site-header">
         <StudioMark language={language} />
@@ -402,42 +687,59 @@ export function App() {
           <p>{t.campaign.body}</p>
         </div>
         <div className="campaign-gallery">
-          <figure>
-            <img src="assets/xrf-hero.png" alt={language === "en" ? "Dark OneLaser XRF Gen2 campaign visual" : "OneLaser XRF Gen2 深色推广视觉"} />
-            <figcaption><span>{t.campaign.captions[0]}</span><span>01 / 03</span></figcaption>
-          </figure>
-          <figure>
-            <img src="assets/xrf-workshop.png" alt={language === "en" ? "Warm OneLaser XRF Gen2 maker campaign visual" : "OneLaser XRF Gen2 创客推广视觉"} />
-            <figcaption><span>{t.campaign.captions[1]}</span><span>02 / 03</span></figcaption>
-          </figure>
-          <figure>
-            <img src="assets/hydra-gen2-education.png" alt={language === "en" ? "OneLaser Hydra Gen2 education campaign visual" : "OneLaser Hydra Gen2 教育推广视觉"} />
-            <figcaption><span>{t.campaign.captions[2]}</span><span>03 / 03</span></figcaption>
-          </figure>
+          {campaignImages.map((image, index) => (
+            <figure key={image.src}>
+              <button className="campaign-image-button" type="button" onClick={() => setLightboxIndex(index)} aria-label={`${t.campaign.enlarge}: ${image.caption}`}>
+                <img src={image.src} alt={image.alt} />
+                <span className="campaign-zoom-label"><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.campaign.enlarge}</span>
+              </button>
+              <figcaption><span>{image.caption}</span><span>{String(index + 1).padStart(2, "0")} / 03</span></figcaption>
+            </figure>
+          ))}
         </div>
       </section>
 
       <section className="case-section section-shell brochure-section" id="brochure">
         <div className="section-kicker"><span>03</span><span>{t.brochure.label}</span></div>
-        <div className="section-title-row">
+        <div className="brochure-heading">
           <h2>{t.brochure.title}</h2>
-          <a href="assets/onelaser-brand-product-brochure.pdf" target="_blank" rel="noreferrer">
-            {t.brochure.action} <DownloadSimple weight="light" aria-hidden="true" />
-          </a>
+          <p>{t.brochure.body}</p>
         </div>
-        <div className="brochure-grid">
-          <figure className="brochure-cover">
-            <img src="assets/brochure-cover.jpg" alt={language === "en" ? "OneLaser brand product brochure cover" : "OneLaser 品牌产品画册封面"} />
-            <figcaption>{t.brochure.captions[0]}</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/brochure-performance.jpg" alt={language === "en" ? "OneLaser brochure page explaining performance" : "OneLaser 画册性能解读页"} />
-            <figcaption>{t.brochure.captions[1]}</figcaption>
-          </figure>
-          <figure>
-            <img src="assets/brochure-applications.jpg" alt={language === "en" ? "OneLaser brochure page showing laser applications" : "OneLaser 画册激光应用页"} />
-            <figcaption>{t.brochure.captions[2]}</figcaption>
-          </figure>
+
+        <article className="brochure-featured">
+          <button className="brochure-cover-button" type="button" onClick={() => setActiveBrochure(brochures[0])} aria-label={`${t.brochure.read}: ${brochures[0].name}`}>
+            <img src="assets/brochures/all-in-one/page-01.jpg" alt={language === "en" ? "OneLaser All-in-One master brochure cover" : "OneLaser All-in-One 品牌与产品总画册封面"} />
+            <span><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.brochure.read}</span>
+          </button>
+          <div className="brochure-featured-copy">
+            <p>{t.brochure.featured}</p>
+            <h3>{brochures[0].name}</h3>
+            <p>{brochures[0].description}</p>
+            <dl><div><dt>{language === "en" ? "Format" : "形式"}</dt><dd>{brochures[0].pages} {language === "en" ? "pages" : "页"}</dd></div><div><dt>{language === "en" ? "Edition" : "版本"}</dt><dd>EN / 2026</dd></div></dl>
+            <div className="brochure-actions">
+              <button type="button" onClick={() => setActiveBrochure(brochures[0])}>{t.brochure.read}<ArrowRight weight="light" aria-hidden="true" /></button>
+              <a href={brochures[0].pdf} target="_blank" rel="noreferrer">{t.brochure.download}<DownloadSimple weight="light" aria-hidden="true" /></a>
+            </div>
+          </div>
+        </article>
+
+        <div className="brochure-library-heading"><span>{t.brochure.collection}</span><span>04 {language === "en" ? "volumes" : "册"}</span></div>
+        <div className="brochure-library">
+          {brochures.slice(1).map((book, index) => (
+            <article className="brochure-card" key={book.slug}>
+              <button className="brochure-card-cover" type="button" onClick={() => setActiveBrochure(book)} aria-label={`${t.brochure.read}: ${book.name}`}>
+                <img src={`assets/brochures/${book.slug}/page-01.jpg`} alt={`${book.name} ${language === "en" ? "brochure cover" : "产品画册封面"}`} />
+                <span><MagnifyingGlassPlus weight="light" aria-hidden="true" /></span>
+              </button>
+              <div className="brochure-card-copy">
+                <span>0{index + 1}</span>
+                <p>{book.eyebrow}</p>
+                <h3>{book.name}</h3>
+                <p>{book.description}</p>
+                <button type="button" onClick={() => setActiveBrochure(book)}>{t.brochure.read}<ArrowRight weight="light" aria-hidden="true" /></button>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
