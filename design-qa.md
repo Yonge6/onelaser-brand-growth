@@ -146,6 +146,47 @@ No actionable P0, P1, or P2 differences remain. The darker graphite material and
 
 final result: passed
 
+## Softer Paper-Like Page Turn
+
+### Evidence
+
+- Published rigid-turn baseline: `docs/source-page-turn-harsh-live.png` at 1440 x 1024.
+- Revised early lift frame: `docs/implementation-page-turn-soft-early.png` at 1440 x 1024.
+- Revised later motion frame: `docs/implementation-page-turn-soft-mid.png` at 1440 x 1024.
+- Same-delay comparison input: `docs/comparison-page-turn-hard-vs-soft.png`.
+- CSS viewport and image pixels: 1440 x 1024 at device scale factor 1; no density normalization required.
+- State: All-in-One cover turning forward to the first interior spread.
+
+### Comparison History
+
+#### Published baseline — blocked
+
+- [P2] The original `.58, .04, .18, .98` curve accelerated too aggressively. At the same early capture delay, the cover had already reached an almost edge-on position, making the interaction read as a rigid panel snapping around a hinge.
+- [P2] Front and reverse faces switched at an exact 50% boundary, creating an abrupt visual handoff at the fastest part of the motion.
+- [P2] Parent `filter` and animated `box-shadow` effects added heavy compositing work without producing convincing paper flex.
+
+Fixes:
+
+- Replaced the aggressive curve with a symmetric `cubic-bezier(.65, 0, .35, 1)` and extended the turn to 1.12 seconds for a slower lift, fluid middle, and gentle landing.
+- Added a nested paper surface with subtle depth, compression, rotation, and skew so the sheet does not remain perfectly rigid during the turn.
+- Replaced the midpoint cut with an eight-percent front/back opacity handoff and animated edge light, preserving the real PDF page images throughout.
+- Removed brightness filtering and heavy animated box shadows from the rotating parent.
+
+#### Revised motion — passed
+
+At the same nominal early delay, the revised cover has lifted only about 20 degrees while the published version was already near 90 degrees. Nine sequential motion samples show continuous progress through approximately 17, 41, 86, 133, 160, 173, 179, and 180 degrees, with a blended face handoff around the edge-on state and no blank frame.
+
+### Required Fidelity Surfaces
+
+- Fonts and typography: passed; the reader header, labels, and publication typography remain unchanged.
+- Spacing and layout rhythm: passed; the previously approved tight reader geometry remains 1285 x 909 at desktop and 375 x 532 at mobile.
+- Colors and visual tokens: passed; graphite chrome, white paper edges, restrained red accents, and readable contrast remain unchanged.
+- Image quality and asset fidelity: passed; both sheet faces continue to use the original high-resolution PDF page renders with no replacement assets.
+- Copy and content: passed; progress, labels, page order, download action, and bilingual content are unchanged.
+- Interaction and responsiveness: passed; forward and backward sheets use mirrored soft motion, controls stay locked during the turn, state commits after landing, mobile remains single-page, horizontal overflow is zero, and browser logs contain no warnings or errors.
+
+final result: passed
+
 ## Physical Magazine Page Turn and Tighter Reader
 
 ### Evidence

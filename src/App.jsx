@@ -539,7 +539,7 @@ function EbookReader({ book, t, onClose }) {
 
   useEffect(() => {
     if (turnTarget === null) return undefined;
-    const fallback = window.setTimeout(finishTurn, 1100);
+    const fallback = window.setTimeout(finishTurn, 1400);
     return () => window.clearTimeout(fallback);
   }, [turnTarget]);
 
@@ -607,8 +607,10 @@ function EbookReader({ book, t, onClose }) {
                 onAnimationEnd={(event) => { if (event.target === event.currentTarget) finishTurn(); }}
                 aria-hidden="true"
               >
-                <div className="ebook-flip-face is-front"><img src={pageSrc(flipFront)} alt="" /></div>
-                <div className="ebook-flip-face is-back"><img src={pageSrc(flipBack)} alt="" /></div>
+                <div className="ebook-flip-surface">
+                  <div className="ebook-flip-face is-front"><img src={pageSrc(flipFront)} alt="" /></div>
+                  <div className="ebook-flip-face is-back"><img src={pageSrc(flipBack)} alt="" /></div>
+                </div>
               </div>
             ) : null}
           </div>
