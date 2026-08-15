@@ -146,6 +146,48 @@ No actionable P0, P1, or P2 differences remain. The darker graphite material and
 
 final result: passed
 
+## Natural Center-Spine Handoff
+
+### Evidence
+
+- Published source frame: `docs/source-page-turn-center-seam.png`.
+- First local revision: `docs/implementation-page-turn-center-seam.png`.
+- Final local revision: `docs/implementation-page-turn-center-seam-final.png`.
+- Full-view comparison: `docs/comparison-page-turn-center-seam.png`.
+- Focused spine comparison: `docs/comparison-page-turn-center-seam-detail.png`.
+- Comparison viewport: 1440 x 1024 CSS pixels at device scale factor 1.
+
+### Comparison History
+
+#### Published reader — blocked
+
+- [P2] The paper-flex transform scaled around the sheet center, so the binding edge visibly pulled away from the book spine during the turn.
+- [P2] The animated edge highlight was attached to the binding edge instead of the free paper edge, making the center join look like a detached bright strip.
+- [P2] A static 22 px spine treatment remained fully opaque throughout the motion and stacked with the moving-page shadow.
+
+#### First revision — blocked
+
+- The paper surface was correctly anchored to the binding side, the edge highlight was moved to the free edge, and the static spine was narrowed and softened during the turn.
+- [P2] The remaining nested `translateZ` flex displaced the binding edge horizontally once the parent sheet rotated in 3D. At the captured mid-turn frame, the surface still ended about 16 px from the 720 px book center.
+
+#### Final revision — passed
+
+- Removed the nested Z translation while preserving the eased sheet rotation, subtle width flex, skew, front/back handoff, and edge lighting.
+- Forward mid-turn: book center `720 px`, turning surface edge `720.32 px`, forward transform origin `0 px`, free-edge highlight on the right.
+- Backward mid-turn: book center `720 px`, turning surface edge `719.46 px`, backward transform origin at the sheet's right edge, free-edge highlight on the left.
+- The focused comparison shows the moving page now meeting the destination spread continuously at the spine, without the previous black slit or bright binding-edge artifact.
+
+### Required Fidelity Surfaces
+
+- Fonts and typography: passed; no type family, weight, size, or hierarchy changed.
+- Spacing and layout rhythm: passed; reader framing and approved compact outer spacing remain unchanged.
+- Colors and visual tokens: passed; the graphite palette remains intact, with the center shadow narrowed from 22 px to 14 px and temporarily reduced to `0.28` opacity during motion.
+- Image quality and asset fidelity: passed; all visible pages remain the original 910 x 1287 PDF renders and were decoded before animation.
+- Copy and content: passed; volume title, page order, counter, controls, and download link are unchanged.
+- Interaction and responsiveness: passed; forward and backward binding edges remain centered, desktop page turns complete, mobile remains single-page with zero horizontal overflow, and no white fallback surface returned.
+
+final result: passed
+
 ## Softer Paper-Like Page Turn
 
 ### Evidence

@@ -655,7 +655,7 @@ function EbookReader({ book, t, onClose }) {
             {renderPageButton(pageIndex, "single", canGoNext ? goNext : canGoPrevious ? goPrevious : undefined, canGoNext ? t.next : t.previous)}
           </div>
         ) : (
-          <div className="ebook-book is-desktop" aria-live="polite">
+          <div className={`ebook-book is-desktop${isTurning ? " is-turning" : ""}`} aria-live="polite">
             {renderPageButton(baseLeft, "left", canGoPrevious ? goPrevious : undefined, t.previous)}
             {renderPageButton(baseRight, "right", canGoNext ? goNext : undefined, t.next)}
             {isTurning ? (
