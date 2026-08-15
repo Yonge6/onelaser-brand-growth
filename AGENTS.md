@@ -13,5 +13,6 @@ When implementing from a selected generated mock, treat that image as the source
 - Use real OneLaser project assets; incomplete work should be labeled as coming soon.
 - Never use discount, savings, low-price, or comparison framing for Premier products.
 - Public custom domain target: `onelaser.wonderelian.com`.
+- The brochure reader should feel like a physical magazine: desktop turns the right-hand sheet from right to left with a visible 3D page, while the reader minimizes outer whitespace so the publication fills the viewport.
 
 Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.

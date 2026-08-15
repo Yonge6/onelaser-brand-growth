@@ -146,6 +146,36 @@ No actionable P0, P1, or P2 differences remain. The darker graphite material and
 
 final result: passed
 
+## Physical Magazine Page Turn and Tighter Reader
+
+### Evidence
+
+- Desktop cover before the turn: `docs/implementation-page-turn-before.png` at 1440 x 1024.
+- Desktop right-to-left motion frame: `docs/implementation-page-turn-mid.png` at 1440 x 1024.
+- Settled page 2–3 spread: `docs/implementation-page-turn-after.png` at 1440 x 1024.
+- Three-state comparison input: `docs/comparison-page-turn-sequence.png`.
+- Tight mobile reader: `docs/implementation-page-turn-mobile-tight.png` at 390 x 844.
+- Device scale factor: 1.
+
+### Findings and Fixes
+
+- The previous reader replaced the whole spread with a short directional entrance animation, so it suggested movement without behaving like a physical magazine.
+- Desktop now keeps the current and upcoming spread in place while a separate two-sided sheet rotates around the book spine. Forward navigation turns the current right-hand page from right to left; the front and reverse faces use the correct consecutive PDF renders, with dynamic shadow and spine shading throughout the turn.
+- Page state and progress remain unchanged during the motion, navigation is temporarily disabled to prevent stacked turns, and the next spread commits only after the sheet finishes. Backward navigation uses the inverse left-to-right sheet motion.
+- Reader chrome was compressed on every edge: desktop outer padding, header, footer progress, side controls, and stage gaps are smaller. At 1440 x 1024 the publication occupies 1285 x 909 pixels inside a 1397 x 927 stage.
+- Mobile side controls now float over the page edge instead of consuming grid columns. At 390 x 844 the page grew from 298 x 422 to 374 x 529 pixels, with zero horizontal overflow.
+
+### Verification
+
+- Forward turn: motion class `is-forward`; front face page 01; reverse face page 02; next resting spread pages 02–03.
+- State timing: progress remained `Page 1 of 20` during the turn and changed to `Page 2–3 of 20` after completion.
+- Continued navigation: clicking the right page advanced to `Page 4–5 of 20`; backward animation used front page 04 and reverse page 03, then returned to `Page 2–3 of 20`.
+- Mobile: single-page mode retained; one page rendered; no desktop flip sheet; zero horizontal overflow.
+- Browser console: no warnings or errors in a fresh local verification tab.
+- Visual comparison: the combined sequence shows a stable cover, a real spine-led sheet in motion, and the correctly settled spread. No actionable P0, P1, or P2 issues remain.
+
+final result: passed
+
 ## Drawer Subpages, Campaign Lightbox, and Magazine Library
 
 ### Evidence

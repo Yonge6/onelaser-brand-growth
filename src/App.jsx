@@ -487,27 +487,45 @@ function EbookReader({ book, t, onClose }) {
   const [pageIndex, setPageIndex] = useState(0);
   const [compact, setCompact] = useState(false);
   const [turnDirection, setTurnDirection] = useState("forward");
+  const [turnTarget, setTurnTarget] = useState(null);
   const closeRef = useRef(null);
   const pageSrc = (index) => `assets/brochures/${book.slug}/page-${String(index + 1).padStart(2, "0")}.jpg`;
-  const step = compact ? 1 : 2;
   const visibleEnd = Math.min(pageIndex + (compact || pageIndex === 0 ? 0 : 1), book.pages - 1);
-  const canGoPrevious = pageIndex > 0;
-  const canGoNext = visibleEnd < book.pages - 1;
-  const goPrevious = () => {
-    setTurnDirection("backward");
-    setPageIndex((current) => current <= 1 ? 0 : Math.max(1, current - step));
+  const isTurning = turnTarget !== null;
+  const canGoPrevious = pageIndex > 0 && !isTurning;
+  const canGoNext = visibleEnd < book.pages - 1 && !isTurning;
+
+  const startTurn = (target, direction) => {
+    if (isTurning) return;
+    setTurnDirection(direction);
+    if (compact) {
+      setPageIndex(target);
+      return;
+    }
+    setTurnTarget(target);
   };
+
+  const goPrevious = () => {
+    if (!canGoPrevious) return;
+    const target = compact ? pageIndex - 1 : pageIndex <= 1 ? 0 : Math.max(1, pageIndex - 2);
+    startTurn(target, "backward");
+  };
+
   const goNext = () => {
-    setTurnDirection("forward");
-    setPageIndex((current) => {
-      if (compact) return Math.min(book.pages - 1, current + 1);
-      if (current === 0) return 1;
-      return Math.min(book.pages - 1, current + 2);
-    });
+    if (!canGoNext) return;
+    const target = compact ? pageIndex + 1 : pageIndex === 0 ? 1 : Math.min(book.pages - 1, pageIndex + 2);
+    startTurn(target, "forward");
+  };
+
+  const finishTurn = () => {
+    if (turnTarget === null) return;
+    setPageIndex(turnTarget);
+    setTurnTarget(null);
   };
 
   useEffect(() => {
     setPageIndex(0);
+    setTurnTarget(null);
     closeRef.current?.focus();
   }, [book.slug]);
 
@@ -518,6 +536,16 @@ function EbookReader({ book, t, onClose }) {
     media.addEventListener("change", sync);
     return () => media.removeEventListener("change", sync);
   }, []);
+
+  useEffect(() => {
+    if (turnTarget === null) return undefined;
+    const fallback = window.setTimeout(finishTurn, 1100);
+    return () => window.clearTimeout(fallback);
+  }, [turnTarget]);
+
+  useEffect(() => {
+    if (compact && turnTarget !== null) finishTurn();
+  }, [compact, turnTarget]);
 
   useEffect(() => {
     const onKeyDown = (event) => {
@@ -533,6 +561,26 @@ function EbookReader({ book, t, onClose }) {
     };
   });
 
+  const renderPageButton = (index, side, onClick, label) => {
+    if (index === null || index >= book.pages) return <div className={`ebook-page-slot is-${side} is-empty`} aria-hidden="true" />;
+    return (
+      <button className={`ebook-page-button is-${side}`} type="button" onClick={onClick} disabled={isTurning} aria-label={label}>
+        <img className="ebook-page" src={pageSrc(index)} alt={`${book.name} — ${t.page} ${index + 1}`} />
+      </button>
+    );
+  };
+
+  const baseLeft = turnTarget === null
+    ? (pageIndex === 0 ? null : pageIndex)
+    : (turnDirection === "forward" ? (pageIndex === 0 ? null : pageIndex) : (turnTarget === 0 ? null : turnTarget));
+  const baseRight = turnTarget === null
+    ? (pageIndex === 0 ? 0 : (pageIndex + 1 < book.pages ? pageIndex + 1 : null))
+    : (turnDirection === "forward"
+      ? (turnTarget + 1 < book.pages ? turnTarget + 1 : null)
+      : (pageIndex + 1 < book.pages ? pageIndex + 1 : null));
+  const flipFront = isTurning ? (turnDirection === "forward" ? (pageIndex === 0 ? 0 : pageIndex + 1) : pageIndex) : null;
+  const flipBack = isTurning ? (turnDirection === "forward" ? turnTarget : (turnTarget === 0 ? 0 : turnTarget + 1)) : null;
+
   return (
     <div className="ebook-reader" role="dialog" aria-modal="true" aria-labelledby="ebook-title">
       <div className="ebook-reader-bar">
@@ -543,18 +591,28 @@ function EbookReader({ book, t, onClose }) {
         </div>
       </div>
 
-      <div className={`ebook-stage ${pageIndex === 0 ? "is-cover" : "is-spread"}`}>
+      <div className={`ebook-stage ${pageIndex === 0 && !isTurning ? "is-cover" : "is-spread"}`}>
         <button className="ebook-nav is-previous" type="button" onClick={goPrevious} disabled={!canGoPrevious} aria-label={t.previous}><CaretLeft weight="light" aria-hidden="true" /></button>
-        <div className={`ebook-book turn-${turnDirection}`} key={`${book.slug}-${pageIndex}-${compact ? "compact" : "spread"}`} aria-live="polite">
-          <button className="ebook-page-button is-left" type="button" onClick={pageIndex === 0 || compact ? (canGoNext ? goNext : undefined) : (canGoPrevious ? goPrevious : undefined)} aria-label={pageIndex === 0 || compact ? t.next : t.previous}>
-            <img className="ebook-page" src={pageSrc(pageIndex)} alt={`${book.name} — ${t.page} ${pageIndex + 1}`} />
-          </button>
-          {!compact && pageIndex > 0 && pageIndex + 1 < book.pages ? (
-            <button className="ebook-page-button is-right" type="button" onClick={canGoNext ? goNext : undefined} aria-label={t.next}>
-              <img className="ebook-page" src={pageSrc(pageIndex + 1)} alt={`${book.name} — ${t.page} ${pageIndex + 2}`} />
-            </button>
-          ) : null}
-        </div>
+        {compact ? (
+          <div className={`ebook-book is-compact turn-${turnDirection}`} key={`${book.slug}-${pageIndex}-compact`} aria-live="polite">
+            {renderPageButton(pageIndex, "single", canGoNext ? goNext : canGoPrevious ? goPrevious : undefined, canGoNext ? t.next : t.previous)}
+          </div>
+        ) : (
+          <div className="ebook-book is-desktop" aria-live="polite">
+            {renderPageButton(baseLeft, "left", canGoPrevious ? goPrevious : undefined, t.previous)}
+            {renderPageButton(baseRight, "right", canGoNext ? goNext : undefined, t.next)}
+            {isTurning ? (
+              <div
+                className={`ebook-flip-sheet is-${turnDirection}`}
+                onAnimationEnd={(event) => { if (event.target === event.currentTarget) finishTurn(); }}
+                aria-hidden="true"
+              >
+                <div className="ebook-flip-face is-front"><img src={pageSrc(flipFront)} alt="" /></div>
+                <div className="ebook-flip-face is-back"><img src={pageSrc(flipBack)} alt="" /></div>
+              </div>
+            ) : null}
+          </div>
+        )}
         <button className="ebook-nav is-next" type="button" onClick={goNext} disabled={!canGoNext} aria-label={t.next}><CaretRight weight="light" aria-hidden="true" /></button>
       </div>
 
