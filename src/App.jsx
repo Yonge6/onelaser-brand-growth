@@ -483,23 +483,62 @@ function CampaignLightbox({ image, index, total, onClose, onPrevious, onNext, t 
   );
 }
 
+const brochurePageCache = new Map();
+
+function preloadBrochurePage(src) {
+  if (brochurePageCache.has(src)) return brochurePageCache.get(src);
+  const pending = new Promise((resolve) => {
+    const image = new Image();
+    let finished = false;
+    const finish = async (loaded) => {
+      if (finished) return;
+      finished = true;
+      if (loaded && typeof image.decode === "function") {
+        try { await image.decode(); } catch { /* The loaded bitmap is still safe to display. */ }
+      }
+      if (!loaded) brochurePageCache.delete(src);
+      resolve(loaded);
+    };
+    image.onload = () => finish(true);
+    image.onerror = () => finish(false);
+    image.src = src;
+    if (image.complete && image.naturalWidth > 0) finish(true);
+  });
+  brochurePageCache.set(src, pending);
+  return pending;
+}
+
 function EbookReader({ book, t, onClose }) {
   const [pageIndex, setPageIndex] = useState(0);
   const [compact, setCompact] = useState(false);
   const [turnDirection, setTurnDirection] = useState("forward");
   const [turnTarget, setTurnTarget] = useState(null);
+  const [preparingTurn, setPreparingTurn] = useState(false);
   const closeRef = useRef(null);
+  const turnRequestRef = useRef(false);
   const pageSrc = (index) => `assets/brochures/${book.slug}/page-${String(index + 1).padStart(2, "0")}.jpg`;
   const visibleEnd = Math.min(pageIndex + (compact || pageIndex === 0 ? 0 : 1), book.pages - 1);
   const isTurning = turnTarget !== null;
-  const canGoPrevious = pageIndex > 0 && !isTurning;
-  const canGoNext = visibleEnd < book.pages - 1 && !isTurning;
+  const isBusy = isTurning || preparingTurn;
+  const canGoPrevious = pageIndex > 0 && !isBusy;
+  const canGoNext = visibleEnd < book.pages - 1 && !isBusy;
 
-  const startTurn = (target, direction) => {
-    if (isTurning) return;
+  const startTurn = async (target, direction) => {
+    if (isBusy || turnRequestRef.current) return;
+    turnRequestRef.current = true;
     setTurnDirection(direction);
+    setPreparingTurn(true);
+    const requiredPages = [target, target + 1]
+      .filter((index) => index >= 0 && index < book.pages);
+    const loadedPages = await Promise.all(requiredPages.map((index) => preloadBrochurePage(pageSrc(index))));
+    setPreparingTurn(false);
+    if (loadedPages.some((loaded) => !loaded)) {
+      turnRequestRef.current = false;
+      return;
+    }
     if (compact) {
       setPageIndex(target);
+      turnRequestRef.current = false;
       return;
     }
     setTurnTarget(target);
@@ -521,12 +560,30 @@ function EbookReader({ book, t, onClose }) {
     if (turnTarget === null) return;
     setPageIndex(turnTarget);
     setTurnTarget(null);
+    turnRequestRef.current = false;
   };
 
   useEffect(() => {
     setPageIndex(0);
     setTurnTarget(null);
+    setPreparingTurn(false);
+    turnRequestRef.current = false;
     closeRef.current?.focus();
+  }, [book.slug]);
+
+  useEffect(() => {
+    [0, 1, 2, 3]
+      .filter((index) => index < book.pages)
+      .forEach((index) => preloadBrochurePage(pageSrc(index)));
+    const preloadRemaining = () => {
+      for (let index = 4; index < book.pages; index += 1) preloadBrochurePage(pageSrc(index));
+    };
+    if (typeof window.requestIdleCallback === "function") {
+      const idleId = window.requestIdleCallback(preloadRemaining, { timeout: 1200 });
+      return () => window.cancelIdleCallback(idleId);
+    }
+    const timerId = window.setTimeout(preloadRemaining, 180);
+    return () => window.clearTimeout(timerId);
   }, [book.slug]);
 
   useEffect(() => {
@@ -564,8 +621,8 @@ function EbookReader({ book, t, onClose }) {
   const renderPageButton = (index, side, onClick, label) => {
     if (index === null || index >= book.pages) return <div className={`ebook-page-slot is-${side} is-empty`} aria-hidden="true" />;
     return (
-      <button className={`ebook-page-button is-${side}`} type="button" onClick={onClick} disabled={isTurning} aria-label={label}>
-        <img className="ebook-page" src={pageSrc(index)} alt={`${book.name} — ${t.page} ${index + 1}`} />
+      <button className={`ebook-page-button is-${side}`} type="button" onClick={onClick} disabled={isBusy} aria-label={label}>
+        <img className="ebook-page" src={pageSrc(index)} alt={`${book.name} — ${t.page} ${index + 1}`} decoding="sync" />
       </button>
     );
   };
@@ -582,7 +639,7 @@ function EbookReader({ book, t, onClose }) {
   const flipBack = isTurning ? (turnDirection === "forward" ? turnTarget : (turnTarget === 0 ? 0 : turnTarget + 1)) : null;
 
   return (
-    <div className="ebook-reader" role="dialog" aria-modal="true" aria-labelledby="ebook-title">
+    <div className="ebook-reader" role="dialog" aria-modal="true" aria-labelledby="ebook-title" aria-busy={preparingTurn}>
       <div className="ebook-reader-bar">
         <div><span>{book.eyebrow}</span><strong id="ebook-title">{book.name}</strong></div>
         <div className="ebook-reader-actions">
@@ -608,8 +665,8 @@ function EbookReader({ book, t, onClose }) {
                 aria-hidden="true"
               >
                 <div className="ebook-flip-surface">
-                  <div className="ebook-flip-face is-front"><img src={pageSrc(flipFront)} alt="" /></div>
-                  <div className="ebook-flip-face is-back"><img src={pageSrc(flipBack)} alt="" /></div>
+                  <div className="ebook-flip-face is-front"><img src={pageSrc(flipFront)} alt="" decoding="sync" /></div>
+                  <div className="ebook-flip-face is-back"><img src={pageSrc(flipBack)} alt="" decoding="sync" /></div>
                 </div>
               </div>
             ) : null}

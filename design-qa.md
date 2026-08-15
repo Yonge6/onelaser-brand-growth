@@ -254,3 +254,43 @@ final result: passed
 - Visual comparison: the contact flow preserves Wendao's hierarchy and row density while adapting to OneLaser graphite. The brochure redesign clearly promotes All-in-One and exposes the product family without crowding. No actionable P0, P1, or P2 issues remain.
 
 final result: passed
+
+## Flash-Free Magazine Rendering
+
+### Evidence
+
+- Preserved soft-motion source target: `docs/implementation-page-turn-soft-early.png`.
+- Revised early motion frame: `docs/implementation-no-white-flash-1.png`.
+- Six-frame revised sequence comparison: `docs/comparison-no-white-flash-sequence.png`.
+- Motion-regression comparison input: `docs/comparison-no-white-flash-regression.png`.
+- Published white-surface diagnostic: `docs/comparison-source-white-flash-sequence.png`; the published reader reported white fallback surfaces even after its page images had loaded.
+- Viewport and source pixels: 1440 x 1024 at device scale factor 1; no density normalization required.
+
+### Comparison History
+
+#### Published reader — blocked
+
+- [P1] Destination pages were mounted only after the click. On a cold page, the browser could reveal the page button or rotating face before its JPEG had loaded and decoded.
+- [P1] Page buttons and both rotating faces used `#fff` fallback backgrounds, so any network or compositor gap appeared as a full white flash during the turn and again at the settled spread.
+
+Fixes:
+
+- Added a shared page-image cache and decode gate. The destination left page and following right page must both load and decode before desktop or mobile navigation commits.
+- Warmed the first four pages immediately and scheduled the remainder during idle time so continuous reading remains responsive.
+- Changed page-button, flip-surface, and face fallbacks to reader graphite `#090909`; added block image layout, face backface protection, and a slight Z separation to prevent compositing seams.
+- Added an immediate request lock and `aria-busy` state while a cold destination spread is prepared. A failed image load cancels the turn and remains retryable rather than revealing an empty page.
+
+#### Revised reader — passed
+
+The six-frame comparison shows the complete cover-to-spread turn without an unintended white frame before, during, or after motion. At animation start, pages 01, 02, and 03 were all complete with natural width 910 px; settled pages 02–03 remained complete. A fresh Cobra volume produced the same result, then mobile advanced with a decoded 910 px page, dark fallback, and zero overflow.
+
+### Required Fidelity Surfaces
+
+- Fonts and typography: passed; no reader typography changed.
+- Spacing and layout rhythm: passed; the approved tight desktop and mobile frames are unchanged.
+- Colors and visual tokens: passed; only invisible/fallback surfaces changed from white to the existing graphite reader token.
+- Image quality and asset fidelity: passed; every visible page remains an original 910 x 1287 PDF render, now decoded before display.
+- Copy and content: passed; titles, page counters, order, language state, and download controls are unchanged.
+- Interaction and responsiveness: passed; forward, continuous, reverse, cold-volume, and mobile navigation complete without warnings, errors, horizontal overflow, unloaded images, or a white fallback frame.
+
+final result: passed
