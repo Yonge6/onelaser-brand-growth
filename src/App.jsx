@@ -78,6 +78,13 @@ const translations = {
         "The live experience carries that logic through an immersive product narrative designed for discovery.",
       ],
     },
+    makerLab: {
+      eyebrow: "Connected platform / Maker Business Lab",
+      title: "Turn maker skills into business numbers.",
+      body: "Explore product opportunities, model realistic profit and payback, and match each idea to the right production setup.",
+      action: "Explore Maker Business Lab",
+      note: "Opportunity scoring / Business math / Production planning",
+    },
     campaign: {
       label: "Campaign systems",
       title: ["One platform.", "Distinct worlds."],
@@ -167,6 +174,13 @@ const translations = {
       action: "打开 XRF Gen2",
       caption: "数字发布系统 / XRF Gen2 / 2026",
       notes: ["以清晰的产品层级组织工程证据、应用范围与高端所有权体验。", "线上页面将这套逻辑延伸为一段沉浸式产品叙事，让发现与理解自然发生。"],
+    },
+    makerLab: {
+      eyebrow: "关联平台 / 创客商业实验室",
+      title: "把创客技能，变成看得见的商业数字。",
+      body: "发现值得投入的创客产品，计算真实利润与回本周期，并为每个商业方向匹配合适的生产配置。",
+      action: "进入创客商业实验室",
+      note: "机会评分 / 商业测算 / 生产规划",
     },
     campaign: {
       label: "推广系统",
@@ -778,6 +792,21 @@ export function App() {
       </section>
 
       <ChapterStrip language={language} />
+
+      <section className="maker-feature" aria-labelledby="maker-feature-title">
+        <a href="https://maker.wonderelian.com/" target="_blank" rel="noreferrer">
+          <div className="maker-feature-visual">
+            <img src="assets/xrf-workshop.png" alt={language === "en" ? "Maker holding a laser-engraved product beside a OneLaser system" : "创客在 OneLaser 设备旁展示激光雕刻产品"} />
+          </div>
+          <div className="maker-feature-copy">
+            <p>{t.makerLab.eyebrow}</p>
+            <h2 id="maker-feature-title">{t.makerLab.title}</h2>
+            <span className="maker-feature-body">{t.makerLab.body}</span>
+            <span className="maker-feature-note">{t.makerLab.note}</span>
+            <strong>{t.makerLab.action} <ArrowUpRight weight="light" aria-hidden="true" /></strong>
+          </div>
+        </a>
+      </section>
 
       <section className="overview section-shell" id="overview">
         <p className="section-index">{t.overview.index}</p>
