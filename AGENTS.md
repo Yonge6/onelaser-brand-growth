@@ -20,5 +20,6 @@ When implementing from a selected generated mock, treat that image as the source
 - Keep the WonderElian drawer-card introduction aligned with the current About copy on `wonderelian.com`, including both Chinese and English positioning.
 - The fourth product-series brochure is XRF Gen2, using the supplied 10-page English PDF and its rendered pages; it replaces the previous X Series volume across the card, reader, and download.
 - Keep `maker.wonderelian.com` prominently accessible from both the fixed top navigation and a full homepage feature module, presenting its real Maker Business Lab positioning rather than a generic promotion.
+- Use newly generated, text-free editorial imagery for the Maker Business Lab feature and the first three chapter thumbnails; do not reuse campaign art, brochure covers, or screenshots in those slots.
 
 Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.

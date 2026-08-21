@@ -253,9 +253,9 @@ const brochureData = {
 
 function buildChapters(t) {
   return [
-    { number: "01", label: t.chapters[0], href: "#web", image: "assets/xrf-hero.png" },
-    { number: "02", label: t.chapters[1], href: "#campaign", image: "assets/xrf-workshop.png" },
-    { number: "03", label: t.chapters[2], href: "#brochure", image: "assets/brochure-cover.jpg" },
+    { number: "01", label: t.chapters[0], href: "#web", image: "assets/chapter-web-experience-v2.png" },
+    { number: "02", label: t.chapters[1], href: "#campaign", image: "assets/chapter-campaign-systems-v2.png" },
+    { number: "03", label: t.chapters[2], href: "#brochure", image: "assets/chapter-product-brochure-v2.png" },
     { number: "04", label: t.chapters[3], href: "#archive", image: null },
   ];
 }
@@ -796,7 +796,7 @@ export function App() {
       <section className="maker-feature" aria-labelledby="maker-feature-title">
         <a href="https://maker.wonderelian.com/" target="_blank" rel="noreferrer">
           <div className="maker-feature-visual">
-            <img src="assets/xrf-workshop.png" alt={language === "en" ? "Maker holding a laser-engraved product beside a OneLaser system" : "创客在 OneLaser 设备旁展示激光雕刻产品"} />
+            <img src="assets/maker-lab-feature-v2.png" alt={language === "en" ? "Maker evaluating laser-made products in a professional production studio" : "创客在专业生产工作室中评估激光制作产品"} />
           </div>
           <div className="maker-feature-copy">
             <p>{t.makerLab.eyebrow}</p>
