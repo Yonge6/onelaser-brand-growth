@@ -18,5 +18,6 @@ When implementing from a selected generated mock, treat that image as the source
 - Magazine navigation must never flash an unloaded white surface: preload and decode the destination spread before motion starts, and keep page/sheet fallback surfaces dark.
 - During a magazine turn, keep the binding edge pinned to the center spine, place the moving paper highlight on the free edge, and soften the static spine shadow until the page lands.
 - Keep the WonderElian drawer-card introduction aligned with the current About copy on `wonderelian.com`, including both Chinese and English positioning.
+- The fourth product-series brochure is XRF Gen2, using the supplied 10-page English PDF and its rendered pages; it replaces the previous X Series volume across the card, reader, and download.
 
 Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.

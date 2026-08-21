@@ -226,14 +226,14 @@ const brochureData = {
     { slug: "cobra", name: "Cobra Series", eyebrow: "Peak glass laser", description: "A focused guide to the accessible, precision-led Cobra family.", pages: 8, pdf: "assets/brochures/cobra.pdf" },
     { slug: "hydra-gen2", name: "Hydra Gen2", eyebrow: "Performance laser", description: "The engineering story behind OneLaser's professional performance platform.", pages: 8, pdf: "assets/brochures/hydra-gen2.pdf" },
     { slug: "vertigo", name: "VertiGo", eyebrow: "Rotary laser", description: "A specialist volume for high-margin drinkware and cylindrical production.", pages: 8, pdf: "assets/brochures/vertigo.pdf" },
-    { slug: "x-series", name: "X Series", eyebrow: "Desktop laser engraver", description: "The compact desktop system, explained from product promise to application.", pages: 8, pdf: "assets/brochures/x-series.pdf" },
+    { slug: "xrf-gen2", name: "XRF Gen2", eyebrow: "RF desktop laser", description: "A focused guide to its RF architecture, smart workflow, material range, and production-ready specifications.", pages: 10, pdf: "assets/brochures/xrf-gen2.pdf" },
   ],
   zh: [
     { slug: "all-in-one", name: "All-in-One", eyebrow: "品牌与产品总画册", description: "一册完整呈现 OneLaser 的产品矩阵、工程优势与应用生态。", pages: 20, pdf: "assets/onelaser-brand-product-brochure.pdf" },
     { slug: "cobra", name: "Cobra 系列", eyebrow: "峰值玻璃激光器", description: "围绕 Cobra 产品家族的性能、易用性与应用场景展开。", pages: 8, pdf: "assets/brochures/cobra.pdf" },
     { slug: "hydra-gen2", name: "Hydra Gen2", eyebrow: "专业性能激光器", description: "完整讲述专业级性能平台背后的工程设计与产品价值。", pages: 8, pdf: "assets/brochures/hydra-gen2.pdf" },
     { slug: "vertigo", name: "VertiGo", eyebrow: "旋转激光器", description: "面向杯具与圆柱体高价值生产场景的专业分册。", pages: 8, pdf: "assets/brochures/vertigo.pdf" },
-    { slug: "x-series", name: "X 系列", eyebrow: "桌面激光雕刻机", description: "从产品主张到实际应用，清晰介绍紧凑型桌面系统。", pages: 8, pdf: "assets/brochures/x-series.pdf" },
+    { slug: "xrf-gen2", name: "XRF Gen2", eyebrow: "RF 桌面激光器", description: "从 RF 架构、智能工作流到材料能力与生产规格，完整呈现 XRF Gen2。", pages: 10, pdf: "assets/brochures/xrf-gen2.pdf" },
   ],
 };
 
