@@ -729,6 +729,16 @@ export function App() {
       <header className="site-header">
         <StudioMark language={language} />
         <div className="header-actions">
+          <a
+            className="maker-link"
+            href="https://maker.wonderelian.com/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label={language === "en" ? "Open Maker Business Lab" : "打开创客商业实验室"}
+          >
+            <span>{language === "en" ? "Maker Business Lab" : "创客商业实验室"}</span>
+            <ArrowUpRight weight="light" aria-hidden="true" />
+          </a>
           <button className="language-toggle" type="button" onClick={toggleLanguage} aria-label={language === "en" ? "切换到中文" : "Switch to English"}>
             {language === "en" ? "中文" : "EN"}
           </button>
