@@ -19,7 +19,7 @@ When implementing from a selected generated mock, treat that image as the source
 - During a magazine turn, keep the binding edge pinned to the center spine, place the moving paper highlight on the free edge, and soften the static spine shadow until the page lands.
 - Keep the WonderElian drawer-card introduction aligned with the current About copy on `wonderelian.com`, including both Chinese and English positioning.
 - The fourth product-series brochure is XRF Gen2, using the supplied 10-page English PDF and its rendered pages; it replaces the previous X Series volume across the card, reader, and download.
-- Keep `maker.wonderelian.com` prominently accessible from both the fixed top navigation and a full homepage feature module, presenting its real Maker Business Lab positioning rather than a generic promotion.
+- Keep `maker.wonderelian.com` accessible through its homepage project card and project index entry, presenting its real Maker Business Lab positioning rather than a generic promotion; do not show a dedicated Maker Business Lab button in the fixed top navigation.
 - Use newly generated, text-free editorial imagery for the Maker Business Lab feature and the first three chapter thumbnails; do not reuse campaign art, brochure covers, or screenshots in those slots.
 - Showcase `https://yonge6.github.io/onelaser-homepage-v3/` on the portfolio alongside the XRF Gen2 listing and Maker Business Lab; treat these as the first three entries in a scalable live-web-project collection that can grow without restructuring the site.
 - Use `https://yonge6.github.io/xrf-gen2-listing/?page=xrf&v=f4b82a2` as the canonical public link for the XRF Gen2 live project.

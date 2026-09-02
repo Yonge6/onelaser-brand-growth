@@ -131,34 +131,6 @@ button:focus-visible {
   gap: 22px;
 }
 
-.maker-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border: 1px solid rgba(244, 242, 237, .32);
-  color: var(--paper);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  transition: border-color .2s ease, background .2s ease, color .2s ease;
-}
-
-.maker-link svg {
-  width: 14px;
-  height: 14px;
-  color: var(--red);
-  transition: transform .2s ease;
-}
-
-.maker-link:hover {
-  border-color: var(--red);
-  background: rgba(240, 50, 25, .08);
-}
-
-.maker-link:hover svg { transform: translate(2px, -2px); }
-
 .language-toggle {
   border: 0;
   border-bottom: 1px solid rgba(244, 242, 237, .42);
@@ -1301,10 +1273,6 @@ footer a:last-child { display: inline-flex; align-items: center; gap: 8px; }
   .site-header { padding-block: 17px; }
   .studio-mark span { display: none; }
   .header-actions { gap: 14px; }
-  .maker-link { padding: 7px 9px; }
-  .maker-link span { font-size: 0; }
-  .maker-link span::after { content: "Maker Lab"; font-size: 9px; }
-  html[lang="zh-CN"] .maker-link span::after { content: "创客实验室"; }
   .hero { height: 760px; min-height: 760px; }
   .hero-visual img { object-position: 67% center; }
   .hero-shade { background: linear-gradient(180deg, rgba(2,2,2,.2), rgba(2,2,2,.7) 56%, #020202 100%); }
