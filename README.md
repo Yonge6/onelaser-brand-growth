@@ -6,7 +6,7 @@ A cinematic case study of OneLaser brand, digital, campaign, and publication wor
 
 - Portfolio case study: https://onelaser.wonderelian.com/
 - GitHub Pages: https://yonge6.github.io/onelaser-brand-growth/
-- Featured XRF Gen2 experience: https://yonge6.github.io/xrf-gen2-listing/
+- Featured XRF Gen2 experience: https://yonge6.github.io/xrf-gen2-listing/?page=xrf&v=f4b82a2
 
 ## Local development
 
