@@ -16,13 +16,21 @@ import {
 } from "@phosphor-icons/react";
 
 const liveProjectUrl = "https://yonge6.github.io/xrf-gen2-listing/";
+const homepageV3Url = "https://yonge6.github.io/onelaser-homepage-v3/";
+const makerLabUrl = "https://maker.wonderelian.com/";
+
+const digitalProjectSources = [
+  { id: "homepage", href: homepageV3Url, image: "assets/onelaser-homepage-v3-project.webp", featured: true },
+  { id: "xrf", href: liveProjectUrl, image: "assets/chapter-web-experience-v2.png" },
+  { id: "maker", href: makerLabUrl, image: "assets/maker-lab-feature-v2.png" },
+];
 
 const translations = {
   en: {
     index: "Index",
     close: "Close",
     creativeDirection: "Creative Direction",
-    chapters: ["Web experience", "Campaign systems", "Product brochure", "Archive opening soon"],
+    chapters: ["Digital experiences", "Campaign systems", "Product brochure", "Archive opening soon"],
     drawer: {
       eyebrow: "OneLaser / Brand & Growth Design",
       title: "Project index",
@@ -33,6 +41,7 @@ const translations = {
       contactNote: "Website, email and social profiles",
       works: "Works along the way",
       worksNote: "See the world, know yourself, and learn to see beauty.",
+      liveProjects: "Live projects",
       back: "Back to project index",
       aboutKicker: "OneLaser / Brand & Growth Design",
       aboutTitle: "One system, from product truth to market impact.",
@@ -59,7 +68,7 @@ const translations = {
       scope: "Scope",
       scopeItems: ["Brand strategy", "Digital experience", "Campaign system", "Publication"],
       year: "Year",
-      action: "View live experience",
+      action: "Explore live work",
       scroll: "Scroll to project overview",
     },
     overview: {
@@ -68,22 +77,35 @@ const translations = {
       body: "OneLaser needed more than isolated campaign assets. The work connects product storytelling, web experience, launch creative and long-form publication into one precise, premium system.",
       facts: [["Role", "Brand & Growth Design"], ["Outputs", "Web / Campaign / Print"], ["Focus", "Precision / Reliability / Throughput"]],
     },
-    web: {
-      label: "Web experience",
-      title: "The product story becomes an experience.",
-      action: "Open XRF Gen2",
-      caption: "Digital launch system / XRF Gen2 / 2026",
-      notes: [
-        "Built around a clear product hierarchy: engineering proof, application range and confident ownership.",
-        "The live experience carries that logic through an immersive product narrative designed for discovery.",
-      ],
-    },
-    makerLab: {
-      eyebrow: "Connected platform / Maker Business Lab",
-      title: "Turn maker skills into business numbers.",
-      body: "Explore product opportunities, model realistic profit and payback, and match each idea to the right production setup.",
-      action: "Explore Maker Business Lab",
-      note: "Opportunity scoring / Business math / Production planning",
+    digital: {
+      label: "Digital experiences / 03 live projects",
+      title: "Three live systems. One connected brand.",
+      body: "From the flagship homepage to a focused product launch and a practical business platform, each experience gives a different audience a clear next move.",
+      open: "Open live project",
+      live: "Live",
+      projects: {
+        homepage: {
+          type: "Brand & commerce website",
+          title: "OneLaser Homepage V3",
+          body: "A complete discovery system connecting the product range, machine finder, maker outcomes, community and ownership support.",
+          note: "Product system / Finder / Community",
+          alt: "OneLaser Cobra laser system in a professional maker studio",
+        },
+        xrf: {
+          type: "Product launch experience",
+          title: "XRF Gen2 Listing",
+          body: "An immersive product story that turns RF engineering, application range and performance evidence into confident product discovery.",
+          note: "Product truth / Performance / Conversion",
+          alt: "OneLaser XRF Gen2 digital experience shown on a studio display",
+        },
+        maker: {
+          type: "Business planning platform",
+          title: "Maker Business Lab",
+          body: "A practical platform for evaluating product opportunities, modelling profit and payback, and planning the right production setup.",
+          note: "Opportunity scoring / Business math / Production planning",
+          alt: "Maker evaluating laser-made products in a professional production studio",
+        },
+      },
     },
     campaign: {
       label: "Campaign systems",
@@ -122,7 +144,7 @@ const translations = {
     index: "索引",
     close: "关闭",
     creativeDirection: "创意指导",
-    chapters: ["网页体验", "推广系统", "产品画册", "更多作品即将上线"],
+    chapters: ["数字体验", "推广系统", "产品画册", "更多作品即将上线"],
     drawer: {
       eyebrow: "OneLaser / 品牌与增长设计",
       title: "项目抽屉",
@@ -133,6 +155,7 @@ const translations = {
       contactNote: "网站、邮箱与社交账号",
       works: "沿途所作",
       worksNote: "观世界，识自己，也学习看见美。",
+      liveProjects: "线上项目",
       back: "返回项目抽屉",
       aboutKicker: "OneLaser / 品牌与增长设计",
       aboutTitle: "从产品事实到市场影响力，建立一套完整系统。",
@@ -159,7 +182,7 @@ const translations = {
       scope: "范围",
       scopeItems: ["品牌策略", "数字体验", "推广系统", "出版设计"],
       year: "年份",
-      action: "查看线上体验",
+      action: "浏览线上项目",
       scroll: "滚动至项目概览",
     },
     overview: {
@@ -168,19 +191,35 @@ const translations = {
       body: "OneLaser 需要的不是彼此割裂的推广素材。这套工作将产品叙事、网页体验、发布创意与长篇出版连接成一个精准、高端的系统。",
       facts: [["角色", "品牌与增长设计"], ["交付", "网页 / 推广 / 印刷"], ["重点", "精准 / 可靠 / 产能"]],
     },
-    web: {
-      label: "网页体验",
-      title: "让产品故事成为可体验的内容。",
-      action: "打开 XRF Gen2",
-      caption: "数字发布系统 / XRF Gen2 / 2026",
-      notes: ["以清晰的产品层级组织工程证据、应用范围与高端所有权体验。", "线上页面将这套逻辑延伸为一段沉浸式产品叙事，让发现与理解自然发生。"],
-    },
-    makerLab: {
-      eyebrow: "关联平台 / 创客商业实验室",
-      title: "把创客技能，变成看得见的商业数字。",
-      body: "发现值得投入的创客产品，计算真实利润与回本周期，并为每个商业方向匹配合适的生产配置。",
-      action: "进入创客商业实验室",
-      note: "机会评分 / 商业测算 / 生产规划",
+    digital: {
+      label: "数字体验 / 03 个线上项目",
+      title: "三个线上系统，一套完整品牌。",
+      body: "从品牌官网、产品发布页到实用商业平台，每个体验都服务不同受众，也都给出清晰的下一步。",
+      open: "打开线上项目",
+      live: "已上线",
+      projects: {
+        homepage: {
+          type: "品牌与商业官网",
+          title: "OneLaser Homepage V3",
+          body: "把产品矩阵、机器选型、创客成果、社区与购买后支持连接成一条完整的发现路径。",
+          note: "产品系统 / 选型器 / 社区",
+          alt: "专业创客工作室中的 OneLaser Cobra 激光设备",
+        },
+        xrf: {
+          type: "产品发布体验",
+          title: "XRF Gen2 Listing",
+          body: "把 RF 工程原理、应用范围与性能证据组织成一段沉浸式产品叙事，帮助用户建立购买信心。",
+          note: "产品事实 / 性能 / 转化",
+          alt: "工作室显示器中的 OneLaser XRF Gen2 数字体验",
+        },
+        maker: {
+          type: "商业规划平台",
+          title: "Maker Business Lab",
+          body: "评估创客产品机会、测算利润与回本周期，并为每个商业方向规划合适的生产配置。",
+          note: "机会评分 / 商业测算 / 生产规划",
+          alt: "创客在专业生产工作室中评估激光制作产品",
+        },
+      },
     },
     campaign: {
       label: "推广系统",
@@ -253,11 +292,15 @@ const brochureData = {
 
 function buildChapters(t) {
   return [
-    { number: "01", label: t.chapters[0], href: "#web", image: "assets/chapter-web-experience-v2.png" },
+    { number: "01", label: t.chapters[0], href: "#digital", image: "assets/chapter-web-experience-v2.png" },
     { number: "02", label: t.chapters[1], href: "#campaign", image: "assets/chapter-campaign-systems-v2.png" },
     { number: "03", label: t.chapters[2], href: "#brochure", image: "assets/chapter-product-brochure-v2.png" },
     { number: "04", label: t.chapters[3], href: "#archive", image: null },
   ];
+}
+
+function buildDigitalProjects(t) {
+  return digitalProjectSources.map((project) => ({ ...project, ...t.digital.projects[project.id] }));
 }
 
 function StudioMark({ language }) {
@@ -273,6 +316,7 @@ function StudioMark({ language }) {
 function IndexOverlay({ open, onClose, language, onLanguageChange }) {
   const t = translations[language];
   const chapters = buildChapters(t);
+  const digitalProjects = buildDigitalProjects(t);
   const works = workData[language];
   const [view, setView] = useState("home");
   const [qrOpen, setQrOpen] = useState(false);
@@ -345,6 +389,22 @@ function IndexOverlay({ open, onClose, language, onLanguageChange }) {
           {view === "home" ? (
             <>
               <p className="drawer-summary">{t.drawer.summary}</p>
+
+              <section className="drawer-live-projects" aria-labelledby="drawer-live-projects-title">
+                <header>
+                  <span id="drawer-live-projects-title">{t.drawer.liveProjects}</span>
+                  <span>03 / {t.digital.live}</span>
+                </header>
+                <div>
+                  {digitalProjects.map((project, index) => (
+                    <a href={project.href} target="_blank" rel="noreferrer" key={project.id}>
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                      <span><strong>{project.title}</strong><small>{project.type}</small></span>
+                      <ArrowUpRight weight="light" aria-hidden="true" />
+                    </a>
+                  ))}
+                </div>
+              </section>
 
               <nav className="drawer-chapters" aria-label={t.drawer.title}>
                 {chapters.map((chapter) => (
@@ -459,6 +519,46 @@ function ChapterStrip({ language }) {
         </a>
       ))}
     </nav>
+  );
+}
+
+function DigitalExperiences({ language }) {
+  const t = translations[language];
+  const projects = buildDigitalProjects(t);
+
+  return (
+    <section className="case-section section-shell digital-section" id="digital" aria-labelledby="digital-title">
+      <div className="section-kicker"><span>01</span><span>{t.digital.label}</span></div>
+      <div className="digital-intro">
+        <h2 id="digital-title">{t.digital.title}</h2>
+        <p>{t.digital.body}</p>
+      </div>
+      <div className="digital-project-grid">
+        {projects.map((project, index) => (
+          <article className={`digital-project-card${project.featured ? " is-featured" : ""}`} data-project={project.id} key={project.id}>
+            <a href={project.href} target="_blank" rel="noreferrer" aria-label={`${t.digital.open}: ${project.title}`}>
+              <div className="digital-project-visual">
+                <img src={project.image} alt={project.alt} />
+                <span>{t.digital.live}</span>
+              </div>
+              <div className="digital-project-copy">
+                <div className="digital-project-meta">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <span>{project.type}</span>
+                  <span>2026</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.body}</p>
+                <div className="digital-project-footer">
+                  <span>{project.note}</span>
+                  <strong>{t.digital.open}<ArrowUpRight weight="light" aria-hidden="true" /></strong>
+                </div>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -745,7 +845,7 @@ export function App() {
         <div className="header-actions">
           <a
             className="maker-link"
-            href="https://maker.wonderelian.com/"
+            href={makerLabUrl}
             target="_blank"
             rel="noreferrer"
             aria-label={language === "en" ? "Open Maker Business Lab" : "打开创客商业实验室"}
@@ -783,8 +883,8 @@ export function App() {
           <div className="meta-year"><dt>{t.hero.year}</dt><dd>2026</dd></div>
         </dl>
 
-        <a className="hero-action" href={liveProjectUrl} target="_blank" rel="noreferrer">
-          {t.hero.action} <ArrowUpRight weight="light" aria-hidden="true" />
+        <a className="hero-action" href="#digital">
+          {t.hero.action} <ArrowDown weight="light" aria-hidden="true" />
         </a>
         <a className="scroll-cue" href="#overview" aria-label={t.hero.scroll}>
           <ArrowDown weight="light" aria-hidden="true" />
@@ -792,21 +892,6 @@ export function App() {
       </section>
 
       <ChapterStrip language={language} />
-
-      <section className="maker-feature" aria-labelledby="maker-feature-title">
-        <a href="https://maker.wonderelian.com/" target="_blank" rel="noreferrer">
-          <div className="maker-feature-visual">
-            <img src="assets/maker-lab-feature-v2.png" alt={language === "en" ? "Maker evaluating laser-made products in a professional production studio" : "创客在专业生产工作室中评估激光制作产品"} />
-          </div>
-          <div className="maker-feature-copy">
-            <p>{t.makerLab.eyebrow}</p>
-            <h2 id="maker-feature-title">{t.makerLab.title}</h2>
-            <span className="maker-feature-body">{t.makerLab.body}</span>
-            <span className="maker-feature-note">{t.makerLab.note}</span>
-            <strong>{t.makerLab.action} <ArrowUpRight weight="light" aria-hidden="true" /></strong>
-          </div>
-        </a>
-      </section>
 
       <section className="overview section-shell" id="overview">
         <p className="section-index">{t.overview.index}</p>
@@ -819,22 +904,7 @@ export function App() {
         </dl>
       </section>
 
-      <section className="case-section section-shell" id="web">
-        <div className="section-kicker"><span>01</span><span>{t.web.label}</span></div>
-        <div className="section-title-row">
-          <h2>{t.web.title}</h2>
-          <a href={liveProjectUrl} target="_blank" rel="noreferrer">
-            {t.web.action} <ArrowUpRight weight="light" aria-hidden="true" />
-          </a>
-        </div>
-        <figure className="wide-artifact">
-          <img src="assets/xrf-workshop.png" alt={language === "en" ? "OneLaser XRF Gen2 web campaign artwork in a maker studio" : "OneLaser XRF Gen2 创客工作室网页推广视觉"} />
-          <figcaption>{t.web.caption}</figcaption>
-        </figure>
-        <div className="case-notes">
-          {t.web.notes.map((note) => <p key={note}>{note}</p>)}
-        </div>
-      </section>
+      <DigitalExperiences language={language} />
 
       <section className="case-section campaign-section" id="campaign">
         <div className="section-shell section-kicker"><span>02</span><span>{t.campaign.label}</span></div>
