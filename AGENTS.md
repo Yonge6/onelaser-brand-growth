@@ -23,5 +23,6 @@ When implementing from a selected generated mock, treat that image as the source
 - Use newly generated, text-free editorial imagery for the Maker Business Lab feature and the first three chapter thumbnails; do not reuse campaign art, brochure covers, or screenshots in those slots.
 - Showcase `https://yonge6.github.io/onelaser-homepage-v3/` on the portfolio alongside the XRF Gen2 listing and Maker Business Lab; treat these as the first three entries in a scalable live-web-project collection that can grow without restructuring the site.
 - Use `https://yonge6.github.io/xrf-gen2-listing/?page=xrf&v=f4b82a2` as the canonical public link for the XRF Gen2 live project.
+- Match Maker Business Lab's bilingual typography system across the portfolio: Barlow Condensed for display, navigation, labels, and Latin text; Noto Sans SC for body copy and Chinese glyph fallback. Do not use the former Noto Serif SC Chinese display treatment.
 
 Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.
