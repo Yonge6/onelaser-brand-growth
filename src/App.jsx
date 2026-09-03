@@ -15,9 +15,9 @@ import {
   X,
 } from "@phosphor-icons/react";
 
-const liveProjectUrl = "https://yonge6.github.io/xrf-gen2-listing/?page=xrf&v=f4b82a2";
-const homepageV3Url = "https://yonge6.github.io/onelaser-homepage-v3/";
-const collectionsUrl = "https://yonge6.github.io/onelaser-homepage-v3/collections/";
+const liveProjectUrl = "https://onelaser.wonderelian.com/xrf-gen2/?page=xrf&v=f4b82a2";
+const homepageV3Url = "https://onelaser.wonderelian.com/home/";
+const collectionsUrl = "https://onelaser.wonderelian.com/collections/";
 const makerLabUrl = "https://maker.wonderelian.com/";
 
 const digitalProjectSources = [
