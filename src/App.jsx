@@ -17,10 +17,12 @@ import {
 
 const liveProjectUrl = "https://yonge6.github.io/xrf-gen2-listing/?page=xrf&v=f4b82a2";
 const homepageV3Url = "https://yonge6.github.io/onelaser-homepage-v3/";
+const collectionsUrl = "https://yonge6.github.io/onelaser-homepage-v3/collections/";
 const makerLabUrl = "https://maker.wonderelian.com/";
 
 const digitalProjectSources = [
-  { id: "homepage", href: homepageV3Url, image: "assets/onelaser-homepage-v3-project.webp", featured: true },
+  { id: "homepage", href: homepageV3Url, image: "assets/onelaser-homepage-v3-project.webp" },
+  { id: "collections", href: collectionsUrl, image: "assets/onelaser-collections-project.jpg" },
   { id: "xrf", href: liveProjectUrl, image: "assets/chapter-web-experience-v2.png" },
   { id: "maker", href: makerLabUrl, image: "assets/maker-lab-feature-v2.png" },
 ];
@@ -78,9 +80,10 @@ const translations = {
       facts: [["Role", "Brand & Growth Design"], ["Outputs", "Web / Campaign / Print"], ["Focus", "Precision / Reliability / Throughput"]],
     },
     digital: {
-      label: "Digital experiences / 03 live projects",
-      title: "Three live systems. One connected brand.",
-      body: "From the flagship homepage to a focused product launch and a practical business platform, each experience gives a different audience a clear next move.",
+      label: "Digital experiences",
+      liveCount: "live projects",
+      title: "Live systems. One connected brand.",
+      body: "From the flagship homepage and product catalog to focused launches and practical business tools, each experience gives a different audience a clear next move.",
       open: "Open live project",
       live: "Live",
       projects: {
@@ -90,6 +93,13 @@ const translations = {
           body: "A complete discovery system connecting the product range, machine finder, maker outcomes, community and ownership support.",
           note: "Product system / Finder / Community",
           alt: "OneLaser Cobra laser system in a professional maker studio",
+        },
+        collections: {
+          type: "Product discovery platform",
+          title: "OneLaser Collections",
+          body: "A focused catalog that helps makers narrow the range by material, job, output level and project scale before comparing machines.",
+          note: "Machine finder / Filters / Product range",
+          alt: "OneLaser product collection featuring XRF, Cobra, Hydra Gen2 and VertiGo laser machines",
         },
         xrf: {
           type: "Product launch experience",
@@ -192,9 +202,10 @@ const translations = {
       facts: [["角色", "品牌与增长设计"], ["交付", "网页 / 推广 / 印刷"], ["重点", "精准 / 可靠 / 产能"]],
     },
     digital: {
-      label: "数字体验 / 03 个线上项目",
-      title: "三个线上系统，一套完整品牌。",
-      body: "从品牌官网、产品发布页到实用商业平台，每个体验都服务不同受众，也都给出清晰的下一步。",
+      label: "数字体验",
+      liveCount: "个线上项目",
+      title: "线上系统，一套完整品牌。",
+      body: "从品牌官网与产品目录，到产品发布页和商业工具，每个体验都服务不同受众，也都给出清晰的下一步。",
       open: "打开线上项目",
       live: "已上线",
       projects: {
@@ -204,6 +215,13 @@ const translations = {
           body: "把产品矩阵、机器选型、创客成果、社区与购买后支持连接成一条完整的发现路径。",
           note: "产品系统 / 选型器 / 社区",
           alt: "专业创客工作室中的 OneLaser Cobra 激光设备",
+        },
+        collections: {
+          type: "产品发现平台",
+          title: "OneLaser Collections",
+          body: "先按材料、任务、产量与项目尺寸缩小选择范围，再进入具体机型比较。",
+          note: "机器选型 / 筛选 / 产品矩阵",
+          alt: "由 XRF、Cobra、Hydra Gen2 与 VertiGo 激光设备组成的 OneLaser 产品矩阵",
         },
         xrf: {
           type: "产品发布体验",
@@ -393,7 +411,7 @@ function IndexOverlay({ open, onClose, language, onLanguageChange }) {
               <section className="drawer-live-projects" aria-labelledby="drawer-live-projects-title">
                 <header>
                   <span id="drawer-live-projects-title">{t.drawer.liveProjects}</span>
-                  <span>03 / {t.digital.live}</span>
+                  <span>{String(digitalProjects.length).padStart(2, "0")} / {t.digital.live}</span>
                 </header>
                 <div>
                   {digitalProjects.map((project, index) => (
@@ -528,14 +546,14 @@ function DigitalExperiences({ language }) {
 
   return (
     <section className="case-section section-shell digital-section" id="digital" aria-labelledby="digital-title">
-      <div className="section-kicker"><span>01</span><span>{t.digital.label}</span></div>
+      <div className="section-kicker"><span>01</span><span>{t.digital.label} / {String(projects.length).padStart(2, "0")} {t.digital.liveCount}</span></div>
       <div className="digital-intro">
         <h2 id="digital-title">{t.digital.title}</h2>
         <p>{t.digital.body}</p>
       </div>
       <div className="digital-project-grid">
         {projects.map((project, index) => (
-          <article className={`digital-project-card${project.featured ? " is-featured" : ""}`} data-project={project.id} key={project.id}>
+          <article className="digital-project-card" data-project={project.id} key={project.id}>
             <a href={project.href} target="_blank" rel="noreferrer" aria-label={`${t.digital.open}: ${project.title}`}>
               <div className="digital-project-visual">
                 <img src={project.image} alt={project.alt} />
