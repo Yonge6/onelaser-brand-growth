@@ -15,7 +15,7 @@ import {
   X,
 } from "@phosphor-icons/react";
 
-const liveProjectUrl = "https://onelaser.wonderelian.com/xrf-gen2/?page=xrf&v=f4b82a2";
+const liveProjectUrl = "https://onelaser.wonderelian.com/xrf-gen2/?page=xrf&v=a586abd";
 const homepageV3Url = "https://onelaser.wonderelian.com/home/";
 const collectionsUrl = "https://onelaser.wonderelian.com/collections/";
 const makerLabUrl = "https://maker.wonderelian.com/";
@@ -25,7 +25,7 @@ const digitalProjectSources = [
   { id: "homepage", href: homepageV3Url, image: "assets/onelaser-homepage-v3-project.webp" },
   { id: "collections", href: collectionsUrl, image: "assets/onelaser-collections-project.jpg" },
   { id: "xrf", href: liveProjectUrl, image: "assets/onelaser-xrf-project-v3.jpg" },
-  { id: "maker", href: makerLabUrl, image: "assets/maker-lab-project-v4.webp" },
+  { id: "maker", href: makerLabUrl, image: "assets/maker-lab-mountain-wall.webp" },
   { id: "tradeShow", href: tradeShowUrl, image: "assets/onelaser-trade-show-project.webp" },
 ];
 
