@@ -29,10 +29,11 @@ const digitalProjectSources = [
   { id: "tradeShow", href: tradeShowUrl, image: "assets/onelaser-trade-show-project.webp" },
 ];
 
-const bannerImageSources = [
-  "assets/xrf-hero.png",
-  "assets/xrf-workshop.png",
-  "assets/hydra-gen2-education.png",
+const bannerCampaignSources = [
+  { id: "labor-day", desktop: "assets/banners/labor-day-desktop.webp", mobile: "assets/banners/labor-day-mobile.webp" },
+  { id: "performance", desktop: "assets/xrf-hero.png", mobile: "assets/banners/performance-mobile.webp" },
+  { id: "maker-economy", desktop: "assets/xrf-workshop.png", mobile: "assets/banners/maker-economy-mobile.webp" },
+  { id: "education", desktop: "assets/hydra-gen2-education.png", mobile: "assets/banners/education-mobile.webp" },
 ];
 
 const paidAdProductGroups = [
@@ -159,13 +160,17 @@ const translations = {
       title: ["One system.", "Every paid touchpoint."],
       body: "From wide campaign banners to a complete paid-social library, the work turns product truth into repeatable creative for every machine, message and audience.",
       bannerLabel: "Banner systems",
-      bannerBody: "Three wide visual worlds establish the campaign language across performance, maker business and education.",
-      bannerCaptions: ["Performance", "Maker economy", "Education"],
+      bannerBody: "Four campaign systems, each shown in desktop and mobile formats. Swipe to compare every responsive pair.",
+      bannerCaptions: ["Labor Day", "Performance", "Maker economy", "Education"],
+      bannerFormats: { desktop: "Desktop", mobile: "Mobile" },
+      campaigns: "campaigns",
       adsLabel: "Paid ads library",
       adsBody: "Forty production-ready ads across Cobra, Hydra Gen2, VertiGo and XRF. Swipe to explore the full set.",
       assets: "assets",
       previousRail: "Previous ads",
       nextRail: "Next ads",
+      previousBanner: "Previous banner campaign",
+      nextBanner: "Next banner campaign",
       adTypes: { "comparison-chart": "Comparison chart", "deal-image": "Deal creative", "feature-callout": "Feature callout", "hero-image": "Hero", lifestyle: "Lifestyle", "monthly-price": "Monthly price", "process-shot": "Process shot", "product-line-collection": "Product line", "sample-work": "Sample work", ugc: "UGC" },
       enlarge: "Enlarge image",
       close: "Close image",
@@ -317,13 +322,17 @@ const translations = {
       title: ["一套系统，", "覆盖所有广告触点。"],
       body: "从横版品牌 Banner 到完整的付费社交广告素材库，把产品事实转化为可持续复用、覆盖不同机型、信息与受众的创意系统。",
       bannerLabel: "Banner 系统",
-      bannerBody: "三组横版视觉分别建立性能、创客商业与教育场景的广告语言。",
-      bannerCaptions: ["性能", "创客经济", "教育"],
+      bannerBody: "四组广告系统均包含电脑端与手机端规格，左右滑动对照浏览每组响应式视觉。",
+      bannerCaptions: ["劳动节活动", "性能", "创客经济", "教育"],
+      bannerFormats: { desktop: "电脑端", mobile: "手机端" },
+      campaigns: "组",
       adsLabel: "Paid Ads 广告库",
       adsBody: "覆盖 Cobra、Hydra Gen2、VertiGo 与 XRF 的 40 张正式投放素材，左右滑动浏览完整作品。",
       assets: "张素材",
       previousRail: "上一组广告",
       nextRail: "下一组广告",
+      previousBanner: "上一组 Banner",
+      nextBanner: "下一组 Banner",
       adTypes: { "comparison-chart": "对比图", "deal-image": "促销视觉", "feature-callout": "功能亮点", "hero-image": "主视觉", lifestyle: "使用场景", "monthly-price": "月付方案", "process-shot": "工艺过程", "product-line-collection": "产品矩阵", "sample-work": "样品成果", ugc: "用户内容" },
       enlarge: "放大图片",
       close: "关闭图片",
@@ -964,14 +973,22 @@ export function App() {
   const [language, setLanguage] = useState("en");
   const [lightbox, setLightbox] = useState(null);
   const [activeBrochure, setActiveBrochure] = useState(null);
+  const bannerRailRef = useRef(null);
   const adRailRef = useRef(null);
   const t = translations[language];
   const brochures = brochureData[language];
-  const bannerImages = bannerImageSources.map((src, index) => ({
-    src,
-    caption: t.campaign.bannerCaptions[index],
-    alt: language === "en" ? `${t.campaign.bannerCaptions[index]} campaign banner for OneLaser` : `OneLaser ${t.campaign.bannerCaptions[index]} Banner 视觉`,
-  }));
+  const bannerGroups = bannerCampaignSources.map((source, index) => {
+    const caption = t.campaign.bannerCaptions[index];
+    const images = ["desktop", "mobile"].map((format) => ({
+      src: source[format],
+      format,
+      formatLabel: t.campaign.bannerFormats[format],
+      caption: `${caption} / ${t.campaign.bannerFormats[format]}`,
+      alt: language === "en" ? `${caption} ${format} campaign banner for OneLaser` : `OneLaser ${caption}${t.campaign.bannerFormats[format]} Banner 视觉`,
+    }));
+    return { ...source, caption, images };
+  });
+  const bannerImages = bannerGroups.flatMap((group) => group.images);
   const adImages = paidAdSources.map((source) => {
     const caption = `${source.product} / ${t.campaign.adTypes[source.type]}`;
     return { ...source, caption, alt: language === "en" ? `${caption} paid ad for OneLaser` : `OneLaser ${caption}广告投放视觉` };
@@ -988,6 +1005,11 @@ export function App() {
   const closeLightbox = () => setLightbox(null);
   const showPreviousLightboxImage = () => setLightbox((current) => ({ ...current, index: (current.index - 1 + activeLightboxImages.length) % activeLightboxImages.length }));
   const showNextLightboxImage = () => setLightbox((current) => ({ ...current, index: (current.index + 1) % activeLightboxImages.length }));
+  const moveBannerRail = (direction) => {
+    const rail = bannerRailRef.current;
+    if (!rail) return;
+    rail.scrollBy({ left: direction * rail.clientWidth * .88, behavior: "smooth" });
+  };
   const moveAdRail = (direction) => {
     const rail = adRailRef.current;
     if (!rail) return;
@@ -1128,17 +1150,36 @@ export function App() {
           <div className="campaign-subsection-heading section-shell">
             <div><span>01</span><h3>{t.campaign.bannerLabel}</h3></div>
             <p>{t.campaign.bannerBody}</p>
-            <span>{String(bannerImages.length).padStart(2, "0")} / {t.campaign.assets}</span>
+            <div className="campaign-rail-meta">
+              <span>{String(bannerGroups.length).padStart(2, "0")} / {t.campaign.campaigns} · {String(bannerImages.length).padStart(2, "0")} / {t.campaign.assets}</span>
+              <div className="campaign-rail-controls">
+                <button type="button" onClick={() => moveBannerRail(-1)} aria-label={t.campaign.previousBanner}><ArrowLeft weight="light" aria-hidden="true" /></button>
+                <button type="button" onClick={() => moveBannerRail(1)} aria-label={t.campaign.nextBanner}><ArrowRight weight="light" aria-hidden="true" /></button>
+              </div>
+            </div>
           </div>
-          <div className="campaign-banner-grid">
-            {bannerImages.map((image, index) => (
-              <figure key={image.src}>
-                <button className="campaign-image-button" type="button" onClick={() => setLightbox({ collection: "banner", index })} aria-label={`${t.campaign.enlarge}: ${image.caption}`}>
-                  <img src={image.src} alt={image.alt} />
-                  <span className="campaign-zoom-label"><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.campaign.enlarge}</span>
-                </button>
-                <figcaption><span>{image.caption}</span><span>{String(index + 1).padStart(2, "0")} / {String(bannerImages.length).padStart(2, "0")}</span></figcaption>
-              </figure>
+          <div className="campaign-banner-rail" ref={bannerRailRef} aria-label={t.campaign.bannerLabel}>
+            {bannerGroups.map((group, groupIndex) => (
+              <article className="campaign-banner-pair" key={group.id}>
+                <div className="campaign-banner-pair-heading">
+                  <span>{String(groupIndex + 1).padStart(2, "0")} / {String(bannerGroups.length).padStart(2, "0")}</span>
+                  <strong>{group.caption}</strong>
+                </div>
+                <div className="campaign-banner-pair-assets">
+                  {group.images.map((image, formatIndex) => {
+                    const imageIndex = groupIndex * 2 + formatIndex;
+                    return (
+                      <figure className={`campaign-banner-asset is-${image.format}`} key={image.src}>
+                        <button className="campaign-image-button" type="button" onClick={() => setLightbox({ collection: "banner", index: imageIndex })} aria-label={`${t.campaign.enlarge}: ${image.caption}`}>
+                          <img src={image.src} alt={image.alt} loading={groupIndex === 0 ? "eager" : "lazy"} decoding="async" />
+                          <span className="campaign-zoom-label"><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.campaign.enlarge}</span>
+                        </button>
+                        <figcaption><span>{image.formatLabel}</span><span>{image.format === "desktop" ? "3840 × 1200" : "1500 × 1800"}</span></figcaption>
+                      </figure>
+                    );
+                  })}
+                </div>
+              </article>
             ))}
           </div>
         </div>
