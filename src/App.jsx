@@ -24,10 +24,29 @@ const tradeShowUrl = "https://onelaser.wonderelian.com/trade-show/";
 const digitalProjectSources = [
   { id: "homepage", href: homepageV3Url, image: "assets/onelaser-homepage-v3-project.webp" },
   { id: "collections", href: collectionsUrl, image: "assets/onelaser-collections-project.jpg" },
-  { id: "xrf", href: liveProjectUrl, image: "assets/chapter-web-experience-v2.png" },
-  { id: "maker", href: makerLabUrl, image: "assets/maker-lab-feature-v2.png" },
+  { id: "xrf", href: liveProjectUrl, image: "assets/onelaser-xrf-project-v3.jpg" },
+  { id: "maker", href: makerLabUrl, image: "assets/maker-lab-project-v3.jpg" },
   { id: "tradeShow", href: tradeShowUrl, image: "assets/onelaser-trade-show-project.webp" },
 ];
+
+const bannerImageSources = [
+  "assets/xrf-hero.png",
+  "assets/xrf-workshop.png",
+  "assets/hydra-gen2-education.png",
+];
+
+const paidAdProductGroups = [
+  { id: "xrf", label: "XRF", variants: ["comparison-chart-3", "deal-image-1", "feature-callout-2", "hero-image-1", "lifestyle-1", "monthly-price-1", "process-shot-2", "product-line-collection-1", "sample-work-1", "ugc-1"] },
+  { id: "cobra", label: "Cobra", variants: ["comparison-chart-1", "deal-image-2", "feature-callout-1", "hero-image-1", "lifestyle-1", "monthly-price-2", "process-shot-1", "product-line-collection-1", "sample-work-2", "ugc-1"] },
+  { id: "hydra-gen2", label: "Hydra Gen2", variants: ["comparison-chart-1", "deal-image-1", "feature-callout-3", "hero-image-1", "lifestyle-1", "monthly-price-1", "process-shot-2", "product-line-collection-1", "sample-work-3", "ugc-3"] },
+  { id: "vertigo", label: "VertiGo", variants: ["comparison-chart-3", "deal-image-1", "feature-callout-2", "hero-image-1", "lifestyle-3", "monthly-price-1", "process-shot-1", "product-line-collection-1", "sample-work-2", "ugc-1"] },
+];
+
+const paidAdSources = paidAdProductGroups.flatMap((product) => product.variants.map((variant) => ({
+  src: `assets/paid-ads/${product.id}-${variant}.jpg`,
+  product: product.label,
+  type: variant.replace(/-\d+$/, ""),
+})));
 
 const sceneImageSources = [
   { src: "assets/scenes/personalized-awards.webp", thumb: "assets/scenes/personalized-awards-thumb.jpg" },
@@ -43,7 +62,7 @@ const translations = {
     index: "Index",
     close: "Close",
     creativeDirection: "Creative Direction",
-    chapters: ["Digital experiences", "Campaign systems", "Product brochure", "Archive opening soon"],
+    chapters: ["Machines at work", "Live digital projects", "Product publications", "Banner + paid ads"],
     drawer: {
       eyebrow: "OneLaser / Brand & Growth Design",
       title: "Project index",
@@ -91,7 +110,7 @@ const translations = {
       facts: [["Role", "Brand & Growth Design"], ["Outputs", "Web / Campaign / Print"], ["Focus", "Precision / Reliability / Throughput"]],
     },
     digital: {
-      label: "Digital experiences",
+      label: "Live digital projects",
       liveCount: "live projects",
       title: "Live systems. One connected brand.",
       body: "From the flagship homepage and product catalog to focused launches and practical business tools, each experience gives a different audience a clear next move.",
@@ -136,10 +155,18 @@ const translations = {
       },
     },
     campaign: {
-      label: "Campaign systems",
-      title: ["One platform.", "Distinct worlds."],
-      body: "A modular campaign language flexes from industrial performance to education and maker-led storytelling, while preserving OneLaser's unmistakable redline signature.",
-      captions: ["Performance", "Maker economy", "Education"],
+      label: "Banner + paid ads",
+      title: ["One system.", "Every paid touchpoint."],
+      body: "From wide campaign banners to a complete paid-social library, the work turns product truth into repeatable creative for every machine, message and audience.",
+      bannerLabel: "Banner systems",
+      bannerBody: "Three wide visual worlds establish the campaign language across performance, maker business and education.",
+      bannerCaptions: ["Performance", "Maker economy", "Education"],
+      adsLabel: "Paid ads library",
+      adsBody: "Forty production-ready ads across Cobra, Hydra Gen2, VertiGo and XRF. Swipe to explore the full set.",
+      assets: "assets",
+      previousRail: "Previous ads",
+      nextRail: "Next ads",
+      adTypes: { "comparison-chart": "Comparison chart", "deal-image": "Deal creative", "feature-callout": "Feature callout", "hero-image": "Hero", lifestyle: "Lifestyle", "monthly-price": "Monthly price", "process-shot": "Process shot", "product-line-collection": "Product line", "sample-work": "Sample work", ugc: "UGC" },
       enlarge: "Enlarge image",
       close: "Close image",
       previous: "Previous image",
@@ -167,7 +194,7 @@ const translations = {
       ],
     },
     brochure: {
-      label: "Product brochure",
+      label: "Product publications",
       title: "A product library, designed to be read.",
       body: "Start with the All-in-One master brochure, then open a focused volume for each product family.",
       featured: "Featured / All-in-One",
@@ -181,7 +208,7 @@ const translations = {
       of: "of",
     },
     archive: {
-      label: "04 / Next chapter",
+      label: "Ongoing archive",
       title: ["More work", "in preparation."],
       body: "New web, campaign and publication work will be added as the archive develops.",
     },
@@ -193,7 +220,7 @@ const translations = {
     index: "索引",
     close: "关闭",
     creativeDirection: "创意指导",
-    chapters: ["数字体验", "推广系统", "产品画册", "更多作品即将上线"],
+    chapters: ["机器真实场景", "线上数字项目", "产品出版物", "Banner + 广告投放"],
     drawer: {
       eyebrow: "OneLaser / 品牌与增长设计",
       title: "项目抽屉",
@@ -241,7 +268,7 @@ const translations = {
       facts: [["角色", "品牌与增长设计"], ["交付", "网页 / 推广 / 印刷"], ["重点", "精准 / 可靠 / 产能"]],
     },
     digital: {
-      label: "数字体验",
+      label: "线上数字项目",
       liveCount: "个线上项目",
       title: "线上系统，一套完整品牌。",
       body: "从品牌官网与产品目录，到产品发布页和商业工具，每个体验都服务不同受众，也都给出清晰的下一步。",
@@ -286,10 +313,18 @@ const translations = {
       },
     },
     campaign: {
-      label: "推广系统",
-      title: ["一个平台。", "多种世界。"],
-      body: "模块化的推广语言可在工业性能、教育与创客叙事之间灵活延展，同时保留 OneLaser 标志性的红线基因。",
-      captions: ["性能", "创客经济", "教育"],
+      label: "Banner + 广告投放",
+      title: ["一套系统，", "覆盖所有广告触点。"],
+      body: "从横版品牌 Banner 到完整的付费社交广告素材库，把产品事实转化为可持续复用、覆盖不同机型、信息与受众的创意系统。",
+      bannerLabel: "Banner 系统",
+      bannerBody: "三组横版视觉分别建立性能、创客商业与教育场景的广告语言。",
+      bannerCaptions: ["性能", "创客经济", "教育"],
+      adsLabel: "Paid Ads 广告库",
+      adsBody: "覆盖 Cobra、Hydra Gen2、VertiGo 与 XRF 的 40 张正式投放素材，左右滑动浏览完整作品。",
+      assets: "张素材",
+      previousRail: "上一组广告",
+      nextRail: "下一组广告",
+      adTypes: { "comparison-chart": "对比图", "deal-image": "促销视觉", "feature-callout": "功能亮点", "hero-image": "主视觉", lifestyle: "使用场景", "monthly-price": "月付方案", "process-shot": "工艺过程", "product-line-collection": "产品矩阵", "sample-work": "样品成果", ugc: "用户内容" },
       enlarge: "放大图片",
       close: "关闭图片",
       previous: "上一张",
@@ -317,7 +352,7 @@ const translations = {
       ],
     },
     brochure: {
-      label: "产品画册",
+      label: "产品出版物",
       title: "一套可以真正翻阅的产品图书馆。",
       body: "先从最重要的 All-in-One 总画册开始，再进入每个产品系列的独立分册。",
       featured: "重点推荐 / All-in-One",
@@ -331,7 +366,7 @@ const translations = {
       of: "/",
     },
     archive: {
-      label: "04 / 下一章",
+      label: "持续更新",
       title: ["更多作品", "整理中。"],
       body: "新的网页、推广与出版作品将随档案整理陆续加入。",
     },
@@ -377,10 +412,10 @@ const brochureData = {
 
 function buildChapters(t) {
   return [
-    { number: "01", label: t.chapters[0], href: "#digital", image: "assets/chapter-web-experience-v2.png" },
-    { number: "02", label: t.chapters[1], href: "#campaign", image: "assets/chapter-campaign-systems-v2.png" },
-    { number: "03", label: t.chapters[2], href: "#brochure", image: "assets/chapter-product-brochure-v2.png" },
-    { number: "04", label: t.chapters[3], href: "#archive", image: null },
+    { number: "01", label: t.chapters[0], href: "#scenes", image: "assets/chapter-scenes-v3.jpg" },
+    { number: "02", label: t.chapters[1], href: "#digital", image: "assets/chapter-digital-v3.jpg" },
+    { number: "03", label: t.chapters[2], href: "#brochure", image: "assets/chapter-publications-v3.jpg" },
+    { number: "04", label: t.chapters[3], href: "#campaign", image: "assets/chapter-paid-ads-v3.jpg" },
   ];
 }
 
@@ -613,7 +648,7 @@ function DigitalExperiences({ language }) {
 
   return (
     <section className="case-section section-shell digital-section" id="digital" aria-labelledby="digital-title">
-      <div className="section-kicker"><span>01</span><span>{t.digital.label} / {String(projects.length).padStart(2, "0")} {t.digital.liveCount}</span></div>
+      <div className="section-kicker"><span>02</span><span>{t.digital.label} / {String(projects.length).padStart(2, "0")} {t.digital.liveCount}</span></div>
       <div className="digital-intro">
         <h2 id="digital-title">{t.digital.title}</h2>
         <p>{t.digital.body}</p>
@@ -658,7 +693,7 @@ function SceneGallery({ images, t, onOpen }) {
   return (
     <section className="case-section scene-section" id="scenes" aria-labelledby="scenes-title">
       <div className="scene-header section-shell">
-        <div className="section-kicker"><span>01A</span><span>{t.label} / {String(images.length).padStart(2, "0")} {t.count}</span></div>
+        <div className="section-kicker"><span>01</span><span>{t.label} / {String(images.length).padStart(2, "0")} {t.count}</span></div>
         <div className="scene-intro">
           <h2 id="scenes-title">{t.title}</h2>
           <div>
@@ -929,15 +964,20 @@ export function App() {
   const [language, setLanguage] = useState("en");
   const [lightbox, setLightbox] = useState(null);
   const [activeBrochure, setActiveBrochure] = useState(null);
+  const adRailRef = useRef(null);
   const t = translations[language];
   const brochures = brochureData[language];
-  const campaignImages = [
-    { src: "assets/xrf-hero.png", alt: language === "en" ? "Dark OneLaser XRF Gen2 campaign visual" : "OneLaser XRF Gen2 深色推广视觉", caption: t.campaign.captions[0] },
-    { src: "assets/xrf-workshop.png", alt: language === "en" ? "Warm OneLaser XRF Gen2 maker campaign visual" : "OneLaser XRF Gen2 创客推广视觉", caption: t.campaign.captions[1] },
-    { src: "assets/hydra-gen2-education.png", alt: language === "en" ? "OneLaser Hydra Gen2 education campaign visual" : "OneLaser Hydra Gen2 教育推广视觉", caption: t.campaign.captions[2] },
-  ];
+  const bannerImages = bannerImageSources.map((src, index) => ({
+    src,
+    caption: t.campaign.bannerCaptions[index],
+    alt: language === "en" ? `${t.campaign.bannerCaptions[index]} campaign banner for OneLaser` : `OneLaser ${t.campaign.bannerCaptions[index]} Banner 视觉`,
+  }));
+  const adImages = paidAdSources.map((source) => {
+    const caption = `${source.product} / ${t.campaign.adTypes[source.type]}`;
+    return { ...source, caption, alt: language === "en" ? `${caption} paid ad for OneLaser` : `OneLaser ${caption}广告投放视觉` };
+  });
   const sceneImages = sceneImageSources.map((source, index) => ({ ...source, ...t.scenes.items[index], caption: t.scenes.items[index].title }));
-  const activeLightboxImages = lightbox?.collection === "scenes" ? sceneImages : campaignImages;
+  const activeLightboxImages = lightbox?.collection === "scenes" ? sceneImages : lightbox?.collection === "ads" ? adImages : bannerImages;
   const activeLightboxCopy = lightbox?.collection === "scenes" ? t.scenes : t.campaign;
 
   useEffect(() => {
@@ -948,6 +988,11 @@ export function App() {
   const closeLightbox = () => setLightbox(null);
   const showPreviousLightboxImage = () => setLightbox((current) => ({ ...current, index: (current.index - 1 + activeLightboxImages.length) % activeLightboxImages.length }));
   const showNextLightboxImage = () => setLightbox((current) => ({ ...current, index: (current.index + 1) % activeLightboxImages.length }));
+  const moveAdRail = (direction) => {
+    const rail = adRailRef.current;
+    if (!rail) return;
+    rail.scrollBy({ left: direction * rail.clientWidth * .82, behavior: "smooth" });
+  };
 
   return (
     <main id="top">
@@ -1024,28 +1069,9 @@ export function App() {
         </dl>
       </section>
 
-      <DigitalExperiences language={language} />
-
       <SceneGallery images={sceneImages} t={t.scenes} onOpen={(index) => setLightbox({ collection: "scenes", index })} />
 
-      <section className="case-section campaign-section" id="campaign">
-        <div className="section-shell section-kicker"><span>02</span><span>{t.campaign.label}</span></div>
-        <div className="campaign-intro section-shell">
-          <h2>{t.campaign.title[0]}<br />{t.campaign.title[1]}</h2>
-          <p>{t.campaign.body}</p>
-        </div>
-        <div className="campaign-gallery">
-          {campaignImages.map((image, index) => (
-            <figure key={image.src}>
-              <button className="campaign-image-button" type="button" onClick={() => setLightbox({ collection: "campaign", index })} aria-label={`${t.campaign.enlarge}: ${image.caption}`}>
-                <img src={image.src} alt={image.alt} />
-                <span className="campaign-zoom-label"><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.campaign.enlarge}</span>
-              </button>
-              <figcaption><span>{image.caption}</span><span>{String(index + 1).padStart(2, "0")} / 03</span></figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
+      <DigitalExperiences language={language} />
 
       <section className="case-section section-shell brochure-section" id="brochure">
         <div className="section-kicker"><span>03</span><span>{t.brochure.label}</span></div>
@@ -1088,6 +1114,58 @@ export function App() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="case-section campaign-section" id="campaign">
+        <div className="section-shell section-kicker"><span>04</span><span>{t.campaign.label}</span></div>
+        <div className="campaign-intro section-shell">
+          <h2>{t.campaign.title[0]}<br />{t.campaign.title[1]}</h2>
+          <p>{t.campaign.body}</p>
+        </div>
+
+        <div className="campaign-subsection campaign-banner-subsection">
+          <div className="campaign-subsection-heading section-shell">
+            <div><span>01</span><h3>{t.campaign.bannerLabel}</h3></div>
+            <p>{t.campaign.bannerBody}</p>
+            <span>{String(bannerImages.length).padStart(2, "0")} / {t.campaign.assets}</span>
+          </div>
+          <div className="campaign-banner-grid">
+            {bannerImages.map((image, index) => (
+              <figure key={image.src}>
+                <button className="campaign-image-button" type="button" onClick={() => setLightbox({ collection: "banner", index })} aria-label={`${t.campaign.enlarge}: ${image.caption}`}>
+                  <img src={image.src} alt={image.alt} />
+                  <span className="campaign-zoom-label"><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.campaign.enlarge}</span>
+                </button>
+                <figcaption><span>{image.caption}</span><span>{String(index + 1).padStart(2, "0")} / {String(bannerImages.length).padStart(2, "0")}</span></figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        <div className="campaign-subsection campaign-ads-subsection">
+          <div className="campaign-subsection-heading section-shell">
+            <div><span>02</span><h3>{t.campaign.adsLabel}</h3></div>
+            <p>{t.campaign.adsBody}</p>
+            <div className="campaign-rail-meta">
+              <span>{String(adImages.length).padStart(2, "0")} / {t.campaign.assets}</span>
+              <div className="campaign-rail-controls">
+                <button type="button" onClick={() => moveAdRail(-1)} aria-label={t.campaign.previousRail}><ArrowLeft weight="light" aria-hidden="true" /></button>
+                <button type="button" onClick={() => moveAdRail(1)} aria-label={t.campaign.nextRail}><ArrowRight weight="light" aria-hidden="true" /></button>
+              </div>
+            </div>
+          </div>
+          <div className="campaign-ad-rail" ref={adRailRef}>
+            {adImages.map((image, index) => (
+              <figure key={image.src}>
+                <button className="campaign-image-button" type="button" onClick={() => setLightbox({ collection: "ads", index })} aria-label={`${t.campaign.enlarge}: ${image.caption}`}>
+                  <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+                  <span className="campaign-zoom-label"><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.campaign.enlarge}</span>
+                </button>
+                <figcaption><span>{image.caption}</span><span>{String(index + 1).padStart(2, "0")} / {String(adImages.length).padStart(2, "0")}</span></figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
