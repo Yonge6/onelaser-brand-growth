@@ -25,7 +25,7 @@ const digitalProjectSources = [
   { id: "homepage", href: homepageV3Url, image: "assets/onelaser-homepage-v3-project.webp" },
   { id: "collections", href: collectionsUrl, image: "assets/onelaser-collections-project.jpg" },
   { id: "xrf", href: liveProjectUrl, image: "assets/onelaser-xrf-project-v3.jpg" },
-  { id: "maker", href: makerLabUrl, image: "assets/maker-lab-project-v3.jpg" },
+  { id: "maker", href: makerLabUrl, image: "assets/maker-lab-project-v4.webp" },
   { id: "tradeShow", href: tradeShowUrl, image: "assets/onelaser-trade-show-project.webp" },
 ];
 
@@ -143,7 +143,7 @@ const translations = {
           title: "Maker Business Lab",
           body: "A practical platform for evaluating product opportunities, modelling profit and payback, and planning the right production setup.",
           note: "Opportunity scoring / Business math / Production planning",
-          alt: "Maker evaluating laser-made products in a professional production studio",
+          alt: "Personalized walnut serving board engraved with a floral monogram",
         },
         tradeShow: {
           type: "Spatial brand experience",
@@ -301,7 +301,7 @@ const translations = {
           title: "Maker Business Lab",
           body: "评估创客产品机会、测算利润与回本周期，并为每个商业方向规划合适的生产配置。",
           note: "机会评分 / 商业测算 / 生产规划",
-          alt: "创客在专业生产工作室中评估激光制作产品",
+          alt: "雕刻有花卉字母纹样的个性化胡桃木托盘",
         },
         tradeShow: {
           type: "空间品牌体验",
