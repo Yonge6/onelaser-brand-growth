@@ -30,7 +30,7 @@ const digitalProjectSources = [
 ];
 
 const bannerCampaignSources = [
-  { id: "labor-day", desktop: "assets/banners/labor-day-desktop.webp", mobile: "assets/banners/labor-day-mobile.webp" },
+  { id: "labor-day", desktop: "assets/banners/labor-day-desktop-v2.webp", mobile: "assets/banners/labor-day-mobile-v2.webp" },
   { id: "performance", desktop: "assets/xrf-hero.png", mobile: "assets/banners/performance-mobile.webp" },
   { id: "maker-economy", desktop: "assets/xrf-workshop.png", mobile: "assets/banners/maker-economy-mobile.webp" },
   { id: "education", desktop: "assets/hydra-gen2-education.png", mobile: "assets/banners/education-mobile.webp" },
