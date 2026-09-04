@@ -4,7 +4,7 @@ Date: 2026-09-03
 
 ## Context
 
-The portfolio links to three static experiences hosted on GitHub Pages. Those pages and their assets can load slowly for visitors in mainland China. The public portfolio already runs on Alibaba Cloud behind `onelaser.wonderelian.com`.
+The portfolio links to static experiences hosted on GitHub Pages. Those pages and their assets can load slowly for visitors in mainland China. The public portfolio already runs on Alibaba Cloud behind `onelaser.wonderelian.com`.
 
 ## Decision
 
@@ -13,6 +13,7 @@ Publish versioned, read-only static builds on the Alibaba Cloud server and expos
 - `/home/` mirrors `Yonge6/onelaser-homepage-v3` at `635e982b898365b65e1043a8bd421190d259a6ec`.
 - `/collections/` serves the collection route from the same homepage build.
 - `/xrf-gen2/?page=xrf` mirrors `Yonge6/xrf-gen2-listing` at `f4b82a21a7c371ff10de7f583156fa10692d7683`.
+- `/trade-show/` mirrors `Yonge6/OneLaser/august-trade-show-booth` at `5ab4396af0f55e68b7a2741809fb55ef8f585f2c`.
 
 Nginx serves the files directly from `/srv/wonderelian/mirrors`. Each public path points to a versioned release through an atomic symlink. The portfolio remains an independent release and only changes its outbound project URLs.
 
@@ -20,7 +21,7 @@ Nginx serves the files directly from `/srv/wonderelian/mirrors`. Each public pat
 
 1. Keep GitHub Pages links. Lowest operational work, but does not solve domestic latency.
 2. Reverse proxy GitHub Pages with a cache. Smaller initial deployment, but a cold cache still depends on GitHub availability and adds upstream failure modes.
-3. Static Alibaba mirrors. Chosen because all three experiences are static, the response path stays domestic, and releases can be pinned and rolled back without changing application code.
+3. Static Alibaba mirrors. Chosen because these experiences are static, the response path stays domestic, and releases can be pinned and rolled back without changing application code.
 
 ## Operations and failure handling
 

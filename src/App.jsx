@@ -19,12 +19,23 @@ const liveProjectUrl = "https://onelaser.wonderelian.com/xrf-gen2/?page=xrf&v=f4
 const homepageV3Url = "https://onelaser.wonderelian.com/home/";
 const collectionsUrl = "https://onelaser.wonderelian.com/collections/";
 const makerLabUrl = "https://maker.wonderelian.com/";
+const tradeShowUrl = "https://onelaser.wonderelian.com/trade-show/";
 
 const digitalProjectSources = [
   { id: "homepage", href: homepageV3Url, image: "assets/onelaser-homepage-v3-project.webp" },
   { id: "collections", href: collectionsUrl, image: "assets/onelaser-collections-project.jpg" },
   { id: "xrf", href: liveProjectUrl, image: "assets/chapter-web-experience-v2.png" },
   { id: "maker", href: makerLabUrl, image: "assets/maker-lab-feature-v2.png" },
+  { id: "tradeShow", href: tradeShowUrl, image: "assets/onelaser-trade-show-project.webp" },
+];
+
+const sceneImageSources = [
+  { src: "assets/scenes/personalized-awards.webp", thumb: "assets/scenes/personalized-awards-thumb.jpg" },
+  { src: "assets/scenes/custom-wood-goods.webp", thumb: "assets/scenes/custom-wood-goods-thumb.jpg" },
+  { src: "assets/scenes/production-studio.webp", thumb: "assets/scenes/production-studio-thumb.jpg" },
+  { src: "assets/scenes/personalized-drinkware.webp", thumb: "assets/scenes/personalized-drinkware-thumb.jpg" },
+  { src: "assets/scenes/large-format-workshop.webp", thumb: "assets/scenes/large-format-workshop-thumb.jpg" },
+  { src: "assets/scenes/market-day-engraving.webp", thumb: "assets/scenes/market-day-engraving-thumb.jpg" },
 ];
 
 const translations = {
@@ -115,6 +126,13 @@ const translations = {
           note: "Opportunity scoring / Business math / Production planning",
           alt: "Maker evaluating laser-made products in a professional production studio",
         },
+        tradeShow: {
+          type: "Spatial brand experience",
+          title: "U.S. Trade Show Booth",
+          body: "A 10 × 40 ft exhibition environment that brings the OneLaser machine range, proof points and maker outcomes into one clear physical story.",
+          note: "Exhibition / Spatial system / Product storytelling",
+          alt: "OneLaser U.S. trade show booth displaying the full laser machine range",
+        },
       },
     },
     campaign: {
@@ -126,6 +144,27 @@ const translations = {
       close: "Close image",
       previous: "Previous image",
       next: "Next image",
+    },
+    scenes: {
+      label: "Machines in the real world",
+      count: "scenes",
+      title: "See the work. See the opportunity.",
+      body: "Each scene connects a machine with a maker, a place and the products it can create—turning technical capability into an immediate picture of use and business potential.",
+      browse: "Browse scenes",
+      previousRail: "Previous scenes",
+      nextRail: "Next scenes",
+      enlarge: "Enlarge scene",
+      close: "Close scene",
+      previous: "Previous scene",
+      next: "Next scene",
+      items: [
+        { title: "Personalized awards", description: "Premium, made-to-order gifts for workshops and local businesses.", alt: "Maker beside a OneLaser machine with personalized awards, drinkware and leather goods" },
+        { title: "Custom wood goods", description: "From a design file to signs, keepsakes and branded pieces.", alt: "Maker holding an engraved wood sign beside a compact OneLaser machine" },
+        { title: "Production studio", description: "Repeatable, high-value craft production at workshop scale.", alt: "Maker inspecting an engraved wood piece beside a large OneLaser machine" },
+        { title: "Personalized drinkware", description: "Names, artwork and gifting moments made tangible on everyday products.", alt: "Two makers personalizing drinkware beside a OneLaser VertiGo machine" },
+        { title: "Large-format workshop", description: "Bigger equipment for signs, wall art and commercial jobs.", alt: "Maker reviewing a large-format OneLaser Cobra machine in a workshop" },
+        { title: "Market-day engraving", description: "Live personalization for pop-ups, markets and mobile businesses.", alt: "Maker using a OneLaser Galvo Flex at an outdoor market" },
+      ],
     },
     brochure: {
       label: "Product brochure",
@@ -237,6 +276,13 @@ const translations = {
           note: "机会评分 / 商业测算 / 生产规划",
           alt: "创客在专业生产工作室中评估激光制作产品",
         },
+        tradeShow: {
+          type: "空间品牌体验",
+          title: "美国展会展厅",
+          body: "面向美国展会打造的 10 × 40 英尺展厅方案，把产品矩阵、核心证据与创客成果组织成清晰的线下品牌体验。",
+          note: "展会空间 / 视觉系统 / 产品叙事",
+          alt: "展示完整激光设备矩阵的 OneLaser 美国展会展厅",
+        },
       },
     },
     campaign: {
@@ -248,6 +294,27 @@ const translations = {
       close: "关闭图片",
       previous: "上一张",
       next: "下一张",
+    },
+    scenes: {
+      label: "真实使用场景",
+      count: "个场景",
+      title: "看见用途，也看见机会。",
+      body: "每个场景都把设备、使用者、工作环境与可生产的产品连在一起，让顾客立刻理解机器能做什么，以及它能带来怎样的生意。",
+      browse: "浏览场景",
+      previousRail: "上一组场景",
+      nextRail: "下一组场景",
+      enlarge: "放大场景图",
+      close: "关闭场景图",
+      previous: "上一个场景",
+      next: "下一个场景",
+      items: [
+        { title: "个性化奖杯与礼品", description: "为工作室与本地企业制作高价值定制商品。", alt: "创客与 OneLaser 设备、定制奖杯、杯具和皮具" },
+        { title: "定制木制品", description: "从设计文件到标牌、纪念品与品牌物料。", alt: "创客手持雕刻木牌，身旁是桌面型 OneLaser 设备" },
+        { title: "专业生产工作室", description: "以工作室规模稳定复制高价值手作产品。", alt: "创客在大型 OneLaser 设备旁检查雕刻木件" },
+        { title: "个性化杯具", description: "把姓名、图案与送礼需求落到日常商品上。", alt: "两位创客在 OneLaser VertiGo 设备旁制作定制杯具" },
+        { title: "大幅面工作室", description: "面向标识、墙面艺术与商业订单的大型设备。", alt: "创客在工作室中查看大幅面 OneLaser Cobra 设备" },
+        { title: "市集现场定制", description: "在快闪店、市集和移动生意中提供即时定制。", alt: "创客在户外市集使用 OneLaser Galvo Flex" },
+      ],
     },
     brochure: {
       label: "产品画册",
@@ -580,7 +647,49 @@ function DigitalExperiences({ language }) {
   );
 }
 
-function CampaignLightbox({ image, index, total, onClose, onPrevious, onNext, t }) {
+function SceneGallery({ images, t, onOpen }) {
+  const railRef = useRef(null);
+  const moveRail = (direction) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    rail.scrollBy({ left: direction * rail.clientWidth * .78, behavior: "smooth" });
+  };
+
+  return (
+    <section className="case-section scene-section" id="scenes" aria-labelledby="scenes-title">
+      <div className="scene-header section-shell">
+        <div className="section-kicker"><span>01A</span><span>{t.label} / {String(images.length).padStart(2, "0")} {t.count}</span></div>
+        <div className="scene-intro">
+          <h2 id="scenes-title">{t.title}</h2>
+          <div>
+            <p>{t.body}</p>
+            <div className="scene-controls" aria-label={t.browse}>
+              <button type="button" onClick={() => moveRail(-1)} aria-label={t.previousRail}><ArrowLeft weight="light" aria-hidden="true" /></button>
+              <button type="button" onClick={() => moveRail(1)} aria-label={t.nextRail}><ArrowRight weight="light" aria-hidden="true" /></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="scene-rail" ref={railRef} aria-label={t.browse}>
+        {images.map((image, index) => (
+          <figure className="scene-card" key={image.src}>
+            <button type="button" onClick={() => onOpen(index)} aria-label={`${t.enlarge}: ${image.title}`}>
+              <img src={image.thumb} alt={image.alt} loading="lazy" decoding="async" />
+              <span><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.enlarge}</span>
+            </button>
+            <figcaption>
+              <span>{String(index + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}</span>
+              <strong>{image.title}</strong>
+              <small>{image.description}</small>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ImageLightbox({ image, index, total, onClose, onPrevious, onNext, t }) {
   const closeRef = useRef(null);
 
   useEffect(() => {
@@ -818,7 +927,7 @@ function EbookReader({ book, t, onClose }) {
 export function App() {
   const [indexOpen, setIndexOpen] = useState(false);
   const [language, setLanguage] = useState("en");
-  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [lightbox, setLightbox] = useState(null);
   const [activeBrochure, setActiveBrochure] = useState(null);
   const t = translations[language];
   const brochures = brochureData[language];
@@ -827,15 +936,18 @@ export function App() {
     { src: "assets/xrf-workshop.png", alt: language === "en" ? "Warm OneLaser XRF Gen2 maker campaign visual" : "OneLaser XRF Gen2 创客推广视觉", caption: t.campaign.captions[1] },
     { src: "assets/hydra-gen2-education.png", alt: language === "en" ? "OneLaser Hydra Gen2 education campaign visual" : "OneLaser Hydra Gen2 教育推广视觉", caption: t.campaign.captions[2] },
   ];
+  const sceneImages = sceneImageSources.map((source, index) => ({ ...source, ...t.scenes.items[index], caption: t.scenes.items[index].title }));
+  const activeLightboxImages = lightbox?.collection === "scenes" ? sceneImages : campaignImages;
+  const activeLightboxCopy = lightbox?.collection === "scenes" ? t.scenes : t.campaign;
 
   useEffect(() => {
     document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
   }, [language]);
 
   const toggleLanguage = () => setLanguage((current) => current === "en" ? "zh" : "en");
-  const closeLightbox = () => setLightboxIndex(null);
-  const showPreviousCampaignImage = () => setLightboxIndex((current) => (current - 1 + campaignImages.length) % campaignImages.length);
-  const showNextCampaignImage = () => setLightboxIndex((current) => (current + 1) % campaignImages.length);
+  const closeLightbox = () => setLightbox(null);
+  const showPreviousLightboxImage = () => setLightbox((current) => ({ ...current, index: (current.index - 1 + activeLightboxImages.length) % activeLightboxImages.length }));
+  const showNextLightboxImage = () => setLightbox((current) => ({ ...current, index: (current.index + 1) % activeLightboxImages.length }));
 
   return (
     <main id="top">
@@ -845,15 +957,15 @@ export function App() {
         language={language}
         onLanguageChange={toggleLanguage}
       />
-      {lightboxIndex !== null ? (
-        <CampaignLightbox
-          image={campaignImages[lightboxIndex]}
-          index={lightboxIndex}
-          total={campaignImages.length}
+      {lightbox !== null ? (
+        <ImageLightbox
+          image={activeLightboxImages[lightbox.index]}
+          index={lightbox.index}
+          total={activeLightboxImages.length}
           onClose={closeLightbox}
-          onPrevious={showPreviousCampaignImage}
-          onNext={showNextCampaignImage}
-          t={t.campaign}
+          onPrevious={showPreviousLightboxImage}
+          onNext={showNextLightboxImage}
+          t={activeLightboxCopy}
         />
       ) : null}
       {activeBrochure ? <EbookReader book={activeBrochure} t={t.brochure} onClose={() => setActiveBrochure(null)} /> : null}
@@ -914,6 +1026,8 @@ export function App() {
 
       <DigitalExperiences language={language} />
 
+      <SceneGallery images={sceneImages} t={t.scenes} onOpen={(index) => setLightbox({ collection: "scenes", index })} />
+
       <section className="case-section campaign-section" id="campaign">
         <div className="section-shell section-kicker"><span>02</span><span>{t.campaign.label}</span></div>
         <div className="campaign-intro section-shell">
@@ -923,7 +1037,7 @@ export function App() {
         <div className="campaign-gallery">
           {campaignImages.map((image, index) => (
             <figure key={image.src}>
-              <button className="campaign-image-button" type="button" onClick={() => setLightboxIndex(index)} aria-label={`${t.campaign.enlarge}: ${image.caption}`}>
+              <button className="campaign-image-button" type="button" onClick={() => setLightbox({ collection: "campaign", index })} aria-label={`${t.campaign.enlarge}: ${image.caption}`}>
                 <img src={image.src} alt={image.alt} />
                 <span className="campaign-zoom-label"><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.campaign.enlarge}</span>
               </button>
