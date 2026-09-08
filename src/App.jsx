@@ -30,6 +30,7 @@ const digitalProjectSources = [
 ];
 
 const bannerCampaignSources = [
+  { id: "hydra-9-clearance", desktop: "assets/banners/hydra-9-clearance-desktop.webp", mobile: "assets/banners/hydra-9-clearance-mobile.webp" },
   { id: "labor-day", desktop: "assets/banners/labor-day-desktop-v2.webp", mobile: "assets/banners/labor-day-mobile-v2.webp" },
   { id: "performance", desktop: "assets/xrf-hero.png", mobile: "assets/banners/performance-mobile.webp" },
   { id: "maker-economy", desktop: "assets/xrf-workshop.png", mobile: "assets/banners/maker-economy-mobile.webp" },
@@ -43,11 +44,15 @@ const paidAdProductGroups = [
   { id: "vertigo", label: "VertiGo", variants: ["comparison-chart-3", "deal-image-1", "feature-callout-2", "hero-image-1", "lifestyle-3", "monthly-price-1", "process-shot-1", "product-line-collection-1", "sample-work-2", "ugc-1"] },
 ];
 
-const paidAdSources = paidAdProductGroups.flatMap((product) => product.variants.map((variant) => ({
+const paidAdSources = [{
+  src: "assets/paid-ads/hydra-7-pro-labor-day.webp",
+  product: "Hydra 7 Pro",
+  type: "labor-day",
+}, ...paidAdProductGroups.flatMap((product) => product.variants.map((variant) => ({
   src: `assets/paid-ads/${product.id}-${variant}.jpg`,
   product: product.label,
   type: variant.replace(/-\d+$/, ""),
-})));
+})))];
 
 const sceneImageSources = [
   { src: "assets/scenes/personalized-awards.webp", thumb: "assets/scenes/personalized-awards-thumb.jpg" },
@@ -168,18 +173,18 @@ const translations = {
       title: ["One system.", "Every paid touchpoint."],
       body: "From wide campaign banners to a complete paid-social library, the work turns product truth into repeatable creative for every machine, message and audience.",
       bannerLabel: "Banner systems",
-      bannerBody: "Four campaign systems, each shown in desktop and mobile formats. Swipe to compare every responsive pair.",
-      bannerCaptions: ["Labor Day", "Performance", "Maker economy", "Education"],
+      bannerBody: "Five campaign systems, each shown in desktop and mobile formats. Swipe to compare every responsive pair.",
+      bannerCaptions: ["Hydra 9 clearance", "Labor Day", "Performance", "Maker economy", "Education"],
       bannerFormats: { desktop: "Desktop", mobile: "Mobile" },
       campaigns: "campaigns",
       adsLabel: "Paid ads library",
-      adsBody: "Forty production-ready ads across Cobra, Hydra Gen2, VertiGo and XRF. Swipe to explore the full set.",
+      adsBody: "Forty-one production-ready ads across Hydra 7 Pro, Cobra, Hydra Gen2, VertiGo and XRF. Swipe to explore the full set.",
       assets: "assets",
       previousRail: "Previous ads",
       nextRail: "Next ads",
       previousBanner: "Previous banner campaign",
       nextBanner: "Next banner campaign",
-      adTypes: { "comparison-chart": "Comparison chart", "deal-image": "Deal creative", "feature-callout": "Feature callout", "hero-image": "Hero", lifestyle: "Lifestyle", "monthly-price": "Monthly price", "process-shot": "Process shot", "product-line-collection": "Product line", "sample-work": "Sample work", ugc: "UGC" },
+      adTypes: { "labor-day": "Labor Day", "comparison-chart": "Comparison chart", "deal-image": "Deal creative", "feature-callout": "Feature callout", "hero-image": "Hero", lifestyle: "Lifestyle", "monthly-price": "Monthly price", "process-shot": "Process shot", "product-line-collection": "Product line", "sample-work": "Sample work", ugc: "UGC" },
       enlarge: "Enlarge image",
       close: "Close image",
       previous: "Previous image",
@@ -338,18 +343,18 @@ const translations = {
       title: ["一套系统，", "覆盖所有广告触点。"],
       body: "从横版品牌 Banner 到完整的付费社交广告素材库，把产品事实转化为可持续复用、覆盖不同机型、信息与受众的创意系统。",
       bannerLabel: "Banner 系统",
-      bannerBody: "四组广告系统均包含电脑端与手机端规格，左右滑动对照浏览每组响应式视觉。",
-      bannerCaptions: ["劳动节活动", "性能", "创客经济", "教育"],
+      bannerBody: "五组广告系统均包含电脑端与手机端规格，左右滑动对照浏览每组响应式视觉。",
+      bannerCaptions: ["Hydra 9 清仓活动", "劳动节活动", "性能", "创客经济", "教育"],
       bannerFormats: { desktop: "电脑端", mobile: "手机端" },
       campaigns: "组",
       adsLabel: "Paid Ads 广告库",
-      adsBody: "覆盖 Cobra、Hydra Gen2、VertiGo 与 XRF 的 40 张正式投放素材，左右滑动浏览完整作品。",
+      adsBody: "覆盖 Hydra 7 Pro、Cobra、Hydra Gen2、VertiGo 与 XRF 的 41 张正式投放素材，左右滑动浏览完整作品。",
       assets: "张素材",
       previousRail: "上一组广告",
       nextRail: "下一组广告",
       previousBanner: "上一组 Banner",
       nextBanner: "下一组 Banner",
-      adTypes: { "comparison-chart": "对比图", "deal-image": "促销视觉", "feature-callout": "功能亮点", "hero-image": "主视觉", lifestyle: "使用场景", "monthly-price": "月付方案", "process-shot": "工艺过程", "product-line-collection": "产品矩阵", "sample-work": "样品成果", ugc: "用户内容" },
+      adTypes: { "labor-day": "劳动节活动", "comparison-chart": "对比图", "deal-image": "促销视觉", "feature-callout": "功能亮点", "hero-image": "主视觉", lifestyle: "使用场景", "monthly-price": "月付方案", "process-shot": "工艺过程", "product-line-collection": "产品矩阵", "sample-work": "样品成果", ugc: "用户内容" },
       enlarge: "放大图片",
       close: "关闭图片",
       previous: "上一张",
