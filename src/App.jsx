@@ -419,14 +419,14 @@ const workData = {
     ["WonderElian", "Making complex things clear, beautiful, and felt", "Elian's personal creative space—recording works and explorations across design, AI, products, and the slow process of becoming himself.", "https://wonderelian.com/"],
     ["Yixiu Meditation", "Return to the present", "Nature sounds, timed listening, and water breathing help you pause during work, reading, sleep, or emotional shifts.", "https://yixiu.wonderelian.com/"],
     ["Xiazi Says", "Yesterday's World", "Nine global stories and eighteen bilingual posters make yesterday's complex world easier to see.", "https://xiazishuo.com/"],
-    ["Bu'er · Know Yourself", "A manual for your life", "Turn birth details into a bilingual chart and foundational reading—a different lens on how you move through life.", "https://human-design.wonderelian.com/"],
+    ["Buer Within", "Your AI growth companion", "Meet Doudoulong to understand yourself, choose your next step, and reflect on real progress—turning insight into action as life unfolds.", "https://buer.wonderelian.com/"],
     ["Style Atlas", "Learn to see a style", "Follow the lineages of art and design, learn to see a style, and discover your own way of looking.", "https://style-atlas.wonderelian.com/"],
   ],
   zh: [
     ["WonderElian", "把复杂的事物，重新变得清楚而有品味", "WonderElian 是永歌 Elian 的个人创作空间。这里记录作品，也记录关于设计、AI、产品，以及如何慢慢成为自己的思考与探索。", "https://wonderelian.com/"],
     ["一休冥想", "让声音带你回到当下", "用真实自然声、定时聆听与水之呼吸，陪你在工作、阅读、睡眠或情绪起伏时先停一停。", "https://yixiu.wonderelian.com/"],
     ["虾子曰", "昨日世界", "每天用 9 个全球热点与 18 张双语海报，把昨天的复杂世界讲清楚。", "https://xiazishuo.com/"],
-    ["不二 认识自己", "人生使用说明书", "从出生信息生成中英双语人类图与基础解读，换一个角度认识自己的运行方式。", "https://human-design.wonderelian.com/"],
+    ["不二见己", "你的专属 AI 成长伙伴", "和豆豆龙一起认识自己、明确行动、记录来时路，把理解变成真实的下一步。", "https://buer.wonderelian.com/"],
     ["艺术风格图鉴", "学习看懂一种美", "沿着艺术与设计风格的脉络，看懂一种美，也找到自己的观看方式。", "https://style-atlas.wonderelian.com/"],
   ],
 };

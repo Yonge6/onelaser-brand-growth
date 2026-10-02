@@ -18,6 +18,7 @@ When implementing from a selected generated mock, treat that image as the source
 - Magazine navigation must never flash an unloaded white surface: preload and decode the destination spread before motion starts, and keep page/sheet fallback surfaces dark.
 - During a magazine turn, keep the binding edge pinned to the center spine, place the moving paper highlight on the free edge, and soften the static spine shadow until the page lands.
 - Keep the WonderElian drawer-card introduction aligned with the current About copy on `wonderelian.com`, including both Chinese and English positioning.
+- Keep the Buer Within drawer card linked to `https://buer.wonderelian.com/` and aligned with its current AI growth companion positioning; do not reuse the legacy Human Design-only name, URL, or description.
 - The fourth product-series brochure is XRF Gen2, using the supplied 10-page English PDF and its rendered pages; it replaces the previous X Series volume across the card, reader, and download.
 - Keep `maker.wonderelian.com` accessible through its homepage project card and project index entry, presenting its real Maker Business Lab positioning rather than a generic promotion; do not show a dedicated Maker Business Lab button in the fixed top navigation.
 - Use newly generated, text-free editorial imagery for all four chapter thumbnails; do not reuse campaign art, brochure covers, or screenshots in those slots.
