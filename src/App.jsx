@@ -70,13 +70,25 @@ const paidAdSources = [{
 const commerceProductGroups = [
   {
     id: "frosted-matte-acrylic",
-    sources: ["hero", "overview", "benefits", "colors", "perfect-for", "details", "laser-tip", "brand", "packaging"],
+    sources: ["packaging", "hero", "overview", "benefits", "colors", "perfect-for", "details", "laser-tip", "brand"],
   },
   {
     id: "no-foam-leatherette",
-    sources: ["hero", "overview", "benefits", "colors", "perfect-for", "details", "laser-tip", "brand", "packaging"],
+    sources: ["packaging", "hero", "overview", "benefits", "colors", "perfect-for", "details", "laser-tip", "brand"],
   },
 ];
+
+const commerceSourceFileIndex = {
+  hero: 1,
+  overview: 2,
+  benefits: 3,
+  colors: 4,
+  "perfect-for": 5,
+  details: 6,
+  "laser-tip": 7,
+  brand: 8,
+  packaging: 9,
+};
 
 const commerceDeliveryStats = {
   leather: 85,
@@ -84,8 +96,8 @@ const commerceDeliveryStats = {
   total: 186,
 };
 
-const commerceProductSources = commerceProductGroups.flatMap((group) => group.sources.map((type, index) => ({
-  src: `assets/ecommerce/${group.id}-${String(index + 1).padStart(2, "0")}-${type}.jpg`,
+const commerceProductSources = commerceProductGroups.flatMap((group) => group.sources.map((type) => ({
+  src: `assets/ecommerce/${group.id}-${String(commerceSourceFileIndex[type]).padStart(2, "0")}-${type}.jpg`,
   product: group.id,
   type,
 })));
