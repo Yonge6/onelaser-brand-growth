@@ -375,11 +375,13 @@ figcaption,
 }
 
 .digital-project-card {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
   min-width: 0;
   background: var(--graphite);
 }
 
-.digital-project-card > a { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100%; }
+.digital-project-visual-link { display: block; min-width: 0; }
 
 .digital-project-visual {
   position: relative;
@@ -409,6 +411,8 @@ figcaption,
 .digital-project-card[data-project="xrf"] .digital-project-visual img { object-position: 70% center; }
 .digital-project-card[data-project="maker"] .digital-project-visual img { object-position: 62% center; }
 .digital-project-card[data-project="tradeShow"] .digital-project-visual img { object-position: center; }
+.digital-project-card[data-project="hydra"] .digital-project-visual img { object-position: center 58%; }
+.digital-project-card[data-project="accessories"] .digital-project-visual img { object-position: center; }
 
 .digital-project-visual > span {
   position: absolute;
@@ -490,7 +494,13 @@ figcaption,
 }
 
 .digital-project-footer > span { color: #77736d; line-height: 1.65; }
-.digital-project-footer strong {
+.digital-project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+
+.digital-project-actions a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -502,11 +512,11 @@ figcaption,
   justify-self: start;
 }
 
-.digital-project-footer svg { width: 14px; height: 14px; transition: transform .2s ease; }
-.digital-project-card > a:hover .digital-project-visual img,
-.digital-project-card > a:focus-visible .digital-project-visual img { transform: scale(1.035); filter: brightness(.9) contrast(1.04); }
-.digital-project-card > a:hover .digital-project-footer svg,
-.digital-project-card > a:focus-visible .digital-project-footer svg { transform: translate(3px, -3px); }
+.digital-project-actions svg { width: 14px; height: 14px; transition: transform .2s ease; }
+.digital-project-visual-link:hover .digital-project-visual img,
+.digital-project-visual-link:focus-visible .digital-project-visual img { transform: scale(1.035); filter: brightness(.9) contrast(1.04); }
+.digital-project-actions a:hover svg,
+.digital-project-actions a:focus-visible svg { transform: translate(3px, -3px); }
 
 .scene-section {
   overflow: hidden;
@@ -1476,7 +1486,6 @@ footer a:last-child { display: inline-flex; align-items: center; gap: 8px; }
   .digital-intro { grid-template-columns: 1fr; gap: 28px; margin: 42px 0 48px; }
   .digital-intro h2 { font-size: clamp(58px, 18vw, 88px); }
   .digital-project-grid { grid-template-columns: 1fr; }
-  .digital-project-card > a { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
   .digital-project-visual { min-height: 0; aspect-ratio: 1.35 / 1; }
   .digital-project-copy { padding: 28px 24px 32px; }
   .digital-project-copy h3 { margin-top: 28px; font-size: clamp(40px, 12vw, 52px); }

@@ -15,18 +15,31 @@ import {
   X,
 } from "@phosphor-icons/react";
 
-const liveProjectUrl = "https://onelaser.wonderelian.com/xrf-gen2/?page=xrf&v=a586abd";
-const homepageV3Url = "https://onelaser.wonderelian.com/home/";
-const collectionsUrl = "https://onelaser.wonderelian.com/collections/";
+const liveProjectUrl = "https://yonge6.github.io/xrf-gen2-listing/";
+const homepageV3Url = "https://yonge6.github.io/onelaser-homepage-v3/";
+const homepageLiveUrl = "https://www.1laser.com/";
+const collectionsUrl = "https://yonge6.github.io/onelaser-homepage-v3/collections/";
+const hydraGen2Url = "https://yonge6.github.io/hydra-gen2-listing/";
+const accessoriesUrl = "https://yonge6.github.io/onelaser-homepage-v3/accessories/";
 const makerLabUrl = "https://maker.wonderelian.com/";
 const tradeShowUrl = "https://onelaser.wonderelian.com/trade-show/";
 
 const digitalProjectSources = [
-  { id: "homepage", href: homepageV3Url, image: "assets/onelaser-homepage-v3-project.webp" },
+  {
+    id: "homepage",
+    href: homepageV3Url,
+    image: "assets/onelaser-homepage-v3-project.webp",
+    links: [
+      { id: "preview", href: homepageV3Url },
+      { id: "official", href: homepageLiveUrl },
+    ],
+  },
   { id: "collections", href: collectionsUrl, image: "assets/onelaser-collections-project.jpg" },
   { id: "xrf", href: liveProjectUrl, image: "assets/onelaser-xrf-project-v3.jpg" },
   { id: "maker", href: makerLabUrl, image: "assets/maker-lab-mountain-wall.webp" },
   { id: "tradeShow", href: tradeShowUrl, image: "assets/onelaser-trade-show-project.webp" },
+  { id: "hydra", href: hydraGen2Url, image: "assets/onelaser-hydra-gen2-project.webp" },
+  { id: "accessories", href: accessoriesUrl, image: "assets/onelaser-accessories-project.webp" },
 ];
 
 const bannerCampaignSources = [
@@ -76,7 +89,7 @@ const translations = {
     index: "Index",
     close: "Close",
     creativeDirection: "Creative Direction",
-    chapters: ["Machines at work", "Live digital projects", "Product publications", "Banner + paid ads"],
+    chapters: ["Machines at work", "Websites", "Product publications", "Banner + paid ads"],
     drawer: {
       eyebrow: "OneLaser / Brand & Growth Design",
       title: "Project index",
@@ -107,7 +120,7 @@ const translations = {
       closeQr: "Close QR code",
     },
     hero: {
-      eyebrow: "OneLaser / Brand & Growth System",
+      eyebrow: "OneLaser / Brand & Growth Design",
       title: ["Precision", "Made Visible"],
       project: "Precision at scale",
       credit: "Creative direction by Elian",
@@ -124,11 +137,12 @@ const translations = {
       facts: [["Role", "Brand & Growth Design"], ["Outputs", "Web / Campaign / Print"], ["Focus", "Precision / Reliability / Throughput"]],
     },
     digital: {
-      label: "Live digital projects",
-      liveCount: "live projects",
-      title: "Live systems. One connected brand.",
-      body: "From the flagship homepage and product catalog to focused launches and practical business tools, each experience gives a different audience a clear next move.",
-      open: "Open live project",
+      label: "Websites",
+      liveCount: "web projects",
+      title: "Independent websites. One connected brand.",
+      body: "From the flagship site and product catalog to dedicated product pages, accessories and business tools, each website has a clear job—and together they support OneLaser's discovery, conversion and growth.",
+      open: "Open website",
+      actions: { open: "Open website", preview: "Design preview", official: "Live website" },
       live: "Live",
       projects: {
         homepage: {
@@ -165,6 +179,20 @@ const translations = {
           body: "A 10 × 40 ft exhibition environment that brings the OneLaser machine range, proof points and maker outcomes into one clear physical story.",
           note: "Exhibition / Spatial system / Product storytelling",
           alt: "OneLaser U.S. trade show booth displaying the full laser machine range",
+        },
+        hydra: {
+          type: "Product launch experience",
+          title: "Hydra Gen2 Listing",
+          body: "A focused product experience that turns industrial RF capability, four workspaces and production proof into a confident next step.",
+          note: "Industrial RF / Performance / Production",
+          alt: "OneLaser Hydra Gen2 laser system in a production workshop",
+        },
+        accessories: {
+          type: "Accessories catalog",
+          title: "OneLaser Accessories",
+          body: "A structured catalog for rotary tools, cooling, filtration, optics and replacement parts—making the right production setup easier to complete.",
+          note: "Rotary / Filtration / Parts",
+          alt: "OneLaser rotary, cooling, filtration and production accessories",
         },
       },
     },
@@ -246,7 +274,7 @@ const translations = {
     index: "索引",
     close: "关闭",
     creativeDirection: "创意指导",
-    chapters: ["机器真实场景", "线上数字项目", "产品出版物", "Banner + 广告投放"],
+    chapters: ["机器真实场景", "网站", "产品出版物", "Banner + 广告投放"],
     drawer: {
       eyebrow: "OneLaser / 品牌与增长设计",
       title: "项目抽屉",
@@ -277,7 +305,7 @@ const translations = {
       closeQr: "关闭二维码",
     },
     hero: {
-      eyebrow: "OneLaser / 品牌与增长系统",
+      eyebrow: "OneLaser / 品牌与增长设计",
       title: ["精准工程", "清晰可见"],
       project: "让精准实现规模化",
       credit: "创意指导：Elian",
@@ -294,11 +322,12 @@ const translations = {
       facts: [["角色", "品牌与增长设计"], ["交付", "网页 / 推广 / 印刷"], ["重点", "精准 / 可靠 / 产能"]],
     },
     digital: {
-      label: "线上数字项目",
-      liveCount: "个线上项目",
-      title: "线上系统，一套完整品牌。",
-      body: "从品牌官网与产品目录，到产品发布页和商业工具，每个体验都服务不同受众，也都给出清晰的下一步。",
-      open: "打开线上项目",
+      label: "网站",
+      liveCount: "个网站项目",
+      title: "一组官网独立站，一套完整品牌。",
+      body: "从品牌主站、产品目录，到独立产品页、配件站与商业工具，每个网站负责一个清晰任务，共同支撑 OneLaser 的发现、转化与增长。",
+      open: "打开网站",
+      actions: { open: "打开网站", preview: "设计预览", official: "上线官网" },
       live: "已上线",
       projects: {
         homepage: {
@@ -335,6 +364,20 @@ const translations = {
           body: "面向美国展会打造的 10 × 40 英尺展厅方案，把产品矩阵、核心证据与创客成果组织成清晰的线下品牌体验。",
           note: "展会空间 / 视觉系统 / 产品叙事",
           alt: "展示完整激光设备矩阵的 OneLaser 美国展会展厅",
+        },
+        hydra: {
+          type: "产品发布体验",
+          title: "Hydra Gen2 Listing",
+          body: "围绕工业级 RF 性能、四种工作幅面与连续生产证据，建立清晰、可信的产品选择路径。",
+          note: "工业 RF / 性能 / 生产",
+          alt: "生产工作室中的 OneLaser Hydra Gen2 激光设备",
+        },
+        accessories: {
+          type: "配件目录",
+          title: "OneLaser Accessories",
+          body: "把旋转轴、冷却、过滤、光学件与替换部件整理成清晰目录，帮助用户补全合适的生产配置。",
+          note: "旋转轴 / 过滤 / 配件",
+          alt: "OneLaser 旋转轴、冷却、过滤与生产配件",
         },
       },
     },
@@ -420,6 +463,7 @@ const workData = {
     ["Yixiu Meditation", "Return to the present", "Nature sounds, timed listening, and water breathing help you pause during work, reading, sleep, or emotional shifts.", "https://yixiu.wonderelian.com/"],
     ["Xiazi Says", "Yesterday's World", "Nine global stories and eighteen bilingual posters make yesterday's complex world easier to see.", "https://xiazishuo.com/"],
     ["Buer Within", "Your AI growth companion", "Meet Doudoulong to understand yourself, choose your next step, and reflect on real progress—turning insight into action as life unfolds.", "https://buer.wonderelian.com/"],
+    ["Wendao", "Read the Tao Te Ching slowly", "Read the Mawangdui silk manuscript, line-by-line translation and life reflections—bringing real situations into conversation with the classic.", "https://wendao.wonderelian.com/"],
     ["Style Atlas", "Learn to see a style", "Follow the lineages of art and design, learn to see a style, and discover your own way of looking.", "https://style-atlas.wonderelian.com/"],
   ],
   zh: [
@@ -427,6 +471,7 @@ const workData = {
     ["一休冥想", "让声音带你回到当下", "用真实自然声、定时聆听与水之呼吸，陪你在工作、阅读、睡眠或情绪起伏时先停一停。", "https://yixiu.wonderelian.com/"],
     ["虾子曰", "昨日世界", "每天用 9 个全球热点与 18 张双语海报，把昨天的复杂世界讲清楚。", "https://xiazishuo.com/"],
     ["不二见己", "你的专属 AI 成长伙伴", "和豆豆龙一起认识自己、明确行动、记录来时路，把理解变成真实的下一步。", "https://buer.wonderelian.com/"],
+    ["三慢问道", "慢读《道德经》，也读自己", "以帛书乙本校读、逐句今译与生活启发，带着真实处境读一章、问一问。", "https://wendao.wonderelian.com/"],
     ["艺术风格图鉴", "学习看懂一种美", "沿着艺术与设计风格的脉络，看懂一种美，也找到自己的观看方式。", "https://style-atlas.wonderelian.com/"],
   ],
 };
@@ -595,7 +640,7 @@ function IndexOverlay({ open, onClose, language, onLanguageChange }) {
                 <div className="drawer-work-list">
                   {works.map(([name, tagline, description, href], index) => (
                     <a className="drawer-work-card" href={href} target="_blank" rel="noreferrer" key={name}>
-                      <span className="drawer-work-index">{language === "en" ? `0${index + 1}` : ["一", "二", "三", "四", "五"][index]}</span>
+                      <span className="drawer-work-index">{language === "en" ? String(index + 1).padStart(2, "0") : ["一", "二", "三", "四", "五", "六"][index]}</span>
                       <span className="drawer-work-copy">
                         <span><strong>{name}</strong><em>{tagline}</em></span>
                         <small>{description}</small>
@@ -694,25 +739,31 @@ function DigitalExperiences({ language }) {
       <div className="digital-project-grid">
         {projects.map((project, index) => (
           <article className="digital-project-card" data-project={project.id} key={project.id}>
-            <a href={project.href} target="_blank" rel="noreferrer" aria-label={`${t.digital.open}: ${project.title}`}>
+            <a className="digital-project-visual-link" href={project.href} target="_blank" rel="noreferrer" aria-label={`${t.digital.open}: ${project.title}`}>
               <div className="digital-project-visual">
                 <img src={project.image} alt={project.alt} />
                 <span>{t.digital.live}</span>
               </div>
-              <div className="digital-project-copy">
-                <div className="digital-project-meta">
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <span>{project.type}</span>
-                  <span>2026</span>
-                </div>
-                <h3>{project.title}</h3>
-                <p>{project.body}</p>
-                <div className="digital-project-footer">
-                  <span>{project.note}</span>
-                  <strong>{t.digital.open}<ArrowUpRight weight="light" aria-hidden="true" /></strong>
+            </a>
+            <div className="digital-project-copy">
+              <div className="digital-project-meta">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <span>{project.type}</span>
+                <span>2026</span>
+              </div>
+              <h3>{project.title}</h3>
+              <p>{project.body}</p>
+              <div className="digital-project-footer">
+                <span>{project.note}</span>
+                <div className="digital-project-actions">
+                  {(project.links ?? [{ id: "open", href: project.href }]).map((link) => (
+                    <a href={link.href} target="_blank" rel="noreferrer" key={link.id}>
+                      {t.digital.actions[link.id]}<ArrowUpRight weight="light" aria-hidden="true" />
+                    </a>
+                  ))}
                 </div>
               </div>
-            </a>
+            </div>
           </article>
         ))}
       </div>
