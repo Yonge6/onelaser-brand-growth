@@ -800,12 +800,12 @@ figcaption { display: flex; justify-content: space-between; margin-top: 11px; fo
   display: flex;
   gap: 1px;
   overflow-x: auto;
-  padding-bottom: 20px;
-  background: rgba(7,7,7,.24);
+  background: transparent;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: 14px;
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
+.campaign-commerce-rail::-webkit-scrollbar { display: none; }
 .campaign-commerce-rail figure {
   flex: 0 0 clamp(280px, 27vw, 440px);
   min-width: 0;

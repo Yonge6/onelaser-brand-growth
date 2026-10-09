@@ -78,6 +78,12 @@ const commerceProductGroups = [
   },
 ];
 
+const commerceDeliveryStats = {
+  leather: 85,
+  acrylic: 101,
+  total: 186,
+};
+
 const commerceProductSources = commerceProductGroups.flatMap((group) => group.sources.map((type, index) => ({
   src: `assets/ecommerce/${group.id}-${String(index + 1).padStart(2, "0")}-${type}.jpg`,
   product: group.id,
@@ -222,11 +228,13 @@ const translations = {
       bannerCaptions: ["Hydra 9 clearance", "Labor Day", "Performance", "Maker economy", "Education"],
       bannerFormats: { desktop: "Desktop", mobile: "Mobile" },
       campaigns: "campaigns",
-      series: "series",
+      caseStudies: "case studies",
+      selected: "selected",
+      delivered: "delivered",
       adsLabel: "Paid ads library",
       adsBody: "Forty-one production-ready ads across Hydra 7 Pro, Cobra, Hydra Gen2, VertiGo and XRF. Swipe to explore the full set.",
       commerceLabel: "E-commerce product visuals",
-      commerceBody: "Two complete image systems for laser materials—covering listing heroes, benefits, colors, applications, technical details and packaging design.",
+      commerceBody: `Two representative case studies from an ${commerceDeliveryStats.total}-asset e-commerce program: ${commerceDeliveryStats.leather} leather visuals and ${commerceDeliveryStats.acrylic} acrylic visuals, spanning listing heroes, benefits, colors, applications, technical details and packaging design.`,
       commerceProducts: {
         "frosted-matte-acrylic": "Frosted Matte Acrylic",
         "no-foam-leatherette": "No-Foam Leatherette",
@@ -427,11 +435,13 @@ const translations = {
       bannerCaptions: ["Hydra 9 清仓活动", "劳动节活动", "性能", "创客经济", "教育"],
       bannerFormats: { desktop: "电脑端", mobile: "手机端" },
       campaigns: "组",
-      series: "个系列",
+      caseStudies: "套案例",
+      selected: "张精选",
+      delivered: "张交付",
       adsLabel: "Paid Ads 广告库",
       adsBody: "覆盖 Hydra 7 Pro、Cobra、Hydra Gen2、VertiGo 与 XRF 的 41 张正式投放素材，左右滑动浏览完整作品。",
       commerceLabel: "电商产品视觉",
-      commerceBody: "两套雕刻材料的完整电商图系统，覆盖商品主图、核心卖点、颜色、应用场景、工艺细节与包装设计。",
+      commerceBody: `这里精选展示两套案例；项目实际完成皮革 ${commerceDeliveryStats.leather} 张、亚克力 ${commerceDeliveryStats.acrylic} 张，共 ${commerceDeliveryStats.total} 张电商图，覆盖商品主图、核心卖点、颜色、应用场景、工艺细节与包装设计。`,
       commerceProducts: {
         "frosted-matte-acrylic": "磨砂哑光亚克力",
         "no-foam-leatherette": "无泡沫皮革",
@@ -1363,7 +1373,7 @@ export function App() {
             <div><span>03</span><h3>{t.campaign.commerceLabel}</h3></div>
             <p>{t.campaign.commerceBody}</p>
             <div className="campaign-rail-meta">
-              <span>{String(commerceProductGroups.length).padStart(2, "0")} / {t.campaign.series} · {String(commerceImages.length).padStart(2, "0")} / {t.campaign.assets}</span>
+              <span>{String(commerceProductGroups.length).padStart(2, "0")} / {t.campaign.caseStudies} · {String(commerceImages.length).padStart(2, "0")} / {t.campaign.selected} · {commerceDeliveryStats.total} / {t.campaign.delivered}</span>
               <div className="campaign-rail-controls">
                 <button type="button" onClick={() => moveCommerceRail(-1)} aria-label={t.campaign.previousCommerce}><ArrowLeft weight="light" aria-hidden="true" /></button>
                 <button type="button" onClick={() => moveCommerceRail(1)} aria-label={t.campaign.nextCommerce}><ArrowRight weight="light" aria-hidden="true" /></button>
