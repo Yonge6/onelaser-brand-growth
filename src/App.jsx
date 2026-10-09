@@ -67,6 +67,23 @@ const paidAdSources = [{
   type: variant.replace(/-\d+$/, ""),
 })))];
 
+const commerceProductGroups = [
+  {
+    id: "frosted-matte-acrylic",
+    sources: ["hero", "overview", "benefits", "colors", "perfect-for", "details", "laser-tip", "brand", "packaging"],
+  },
+  {
+    id: "no-foam-leatherette",
+    sources: ["hero", "overview", "benefits", "colors", "perfect-for", "details", "laser-tip", "brand", "packaging"],
+  },
+];
+
+const commerceProductSources = commerceProductGroups.flatMap((group) => group.sources.map((type, index) => ({
+  src: `assets/ecommerce/${group.id}-${String(index + 1).padStart(2, "0")}-${type}.jpg`,
+  product: group.id,
+  type,
+})));
+
 const sceneImageSources = [
   { src: "assets/scenes/personalized-awards.webp", thumb: "assets/scenes/personalized-awards-thumb.jpg" },
   { src: "assets/scenes/custom-wood-goods.webp", thumb: "assets/scenes/custom-wood-goods-thumb.jpg" },
@@ -120,10 +137,10 @@ const translations = {
       closeQr: "Close QR code",
     },
     hero: {
-      eyebrow: "OneLaser / Brand & Growth Design",
-      title: ["Precision", "Made Visible"],
-      project: "Precision at scale",
-      credit: "Creative direction by Elian",
+      eyebrow: "OneLaser / Integrated Case Study",
+      title: ["Brand &", "Growth Design"],
+      project: "From product truth to brand and market growth",
+      credit: "Strategy, creative direction and design by Elian",
       scope: "Scope",
       scopeItems: ["Brand strategy", "Digital experience", "Campaign system", "Publication"],
       year: "Year",
@@ -205,13 +222,33 @@ const translations = {
       bannerCaptions: ["Hydra 9 clearance", "Labor Day", "Performance", "Maker economy", "Education"],
       bannerFormats: { desktop: "Desktop", mobile: "Mobile" },
       campaigns: "campaigns",
+      series: "series",
       adsLabel: "Paid ads library",
       adsBody: "Forty-one production-ready ads across Hydra 7 Pro, Cobra, Hydra Gen2, VertiGo and XRF. Swipe to explore the full set.",
+      commerceLabel: "E-commerce product visuals",
+      commerceBody: "Two complete image systems for laser materials—covering listing heroes, benefits, colors, applications, technical details and packaging design.",
+      commerceProducts: {
+        "frosted-matte-acrylic": "Frosted Matte Acrylic",
+        "no-foam-leatherette": "No-Foam Leatherette",
+      },
+      commerceTypes: {
+        hero: "Listing hero",
+        overview: "Product overview",
+        benefits: "Key benefits",
+        colors: "Color range",
+        "perfect-for": "Applications",
+        details: "Material details",
+        "laser-tip": "Laser tips",
+        brand: "Brand image",
+        packaging: "Packaging design",
+      },
       assets: "assets",
       previousRail: "Previous ads",
       nextRail: "Next ads",
       previousBanner: "Previous banner campaign",
       nextBanner: "Next banner campaign",
+      previousCommerce: "Previous product visual",
+      nextCommerce: "Next product visual",
       adTypes: { "labor-day": "Labor Day", "comparison-chart": "Comparison chart", "deal-image": "Deal creative", "feature-callout": "Feature callout", "hero-image": "Hero", lifestyle: "Lifestyle", "monthly-price": "Monthly price", "process-shot": "Process shot", "product-line-collection": "Product line", "sample-work": "Sample work", ugc: "UGC" },
       enlarge: "Enlarge image",
       close: "Close image",
@@ -305,10 +342,10 @@ const translations = {
       closeQr: "关闭二维码",
     },
     hero: {
-      eyebrow: "OneLaser / 品牌与增长设计",
-      title: ["精准工程", "清晰可见"],
-      project: "让精准实现规模化",
-      credit: "创意指导：Elian",
+      eyebrow: "OneLaser / 综合案例",
+      title: ["品牌与增长", "设计"],
+      project: "从产品事实，到品牌与市场增长",
+      credit: "策略、创意指导与设计：Elian",
       scope: "范围",
       scopeItems: ["品牌策略", "数字体验", "推广系统", "出版设计"],
       year: "年份",
@@ -390,13 +427,33 @@ const translations = {
       bannerCaptions: ["Hydra 9 清仓活动", "劳动节活动", "性能", "创客经济", "教育"],
       bannerFormats: { desktop: "电脑端", mobile: "手机端" },
       campaigns: "组",
+      series: "个系列",
       adsLabel: "Paid Ads 广告库",
       adsBody: "覆盖 Hydra 7 Pro、Cobra、Hydra Gen2、VertiGo 与 XRF 的 41 张正式投放素材，左右滑动浏览完整作品。",
+      commerceLabel: "电商产品视觉",
+      commerceBody: "两套雕刻材料的完整电商图系统，覆盖商品主图、核心卖点、颜色、应用场景、工艺细节与包装设计。",
+      commerceProducts: {
+        "frosted-matte-acrylic": "磨砂哑光亚克力",
+        "no-foam-leatherette": "无泡沫皮革",
+      },
+      commerceTypes: {
+        hero: "商品主图",
+        overview: "产品概览",
+        benefits: "核心卖点",
+        colors: "颜色选择",
+        "perfect-for": "应用场景",
+        details: "材料细节",
+        "laser-tip": "雕刻提示",
+        brand: "品牌形象",
+        packaging: "包装设计",
+      },
       assets: "张素材",
       previousRail: "上一组广告",
       nextRail: "下一组广告",
       previousBanner: "上一组 Banner",
       nextBanner: "下一组 Banner",
+      previousCommerce: "上一张产品图",
+      nextCommerce: "下一张产品图",
       adTypes: { "labor-day": "劳动节活动", "comparison-chart": "对比图", "deal-image": "促销视觉", "feature-callout": "功能亮点", "hero-image": "主视觉", lifestyle: "使用场景", "monthly-price": "月付方案", "process-shot": "工艺过程", "product-line-collection": "产品矩阵", "sample-work": "样品成果", ugc: "用户内容" },
       enlarge: "放大图片",
       close: "关闭图片",
@@ -1055,6 +1112,7 @@ export function App() {
   const [activeBrochure, setActiveBrochure] = useState(null);
   const bannerRailRef = useRef(null);
   const adRailRef = useRef(null);
+  const commerceRailRef = useRef(null);
   const t = translations[language];
   const brochures = brochureData[language];
   const bannerGroups = bannerCampaignSources.map((source, index) => {
@@ -1073,8 +1131,14 @@ export function App() {
     const caption = `${source.product} / ${t.campaign.adTypes[source.type]}`;
     return { ...source, caption, alt: language === "en" ? `${caption} paid ad for OneLaser` : `OneLaser ${caption}广告投放视觉` };
   });
+  const commerceImages = commerceProductSources.map((source) => {
+    const product = t.campaign.commerceProducts[source.product];
+    const type = t.campaign.commerceTypes[source.type];
+    const caption = `${product} / ${type}`;
+    return { ...source, caption, alt: language === "en" ? `${product} ${type.toLowerCase()} e-commerce visual` : `${product}${type}电商视觉` };
+  });
   const sceneImages = sceneImageSources.map((source, index) => ({ ...source, ...t.scenes.items[index], caption: t.scenes.items[index].title }));
-  const activeLightboxImages = lightbox?.collection === "scenes" ? sceneImages : lightbox?.collection === "ads" ? adImages : bannerImages;
+  const activeLightboxImages = lightbox?.collection === "scenes" ? sceneImages : lightbox?.collection === "ads" ? adImages : lightbox?.collection === "commerce" ? commerceImages : bannerImages;
   const activeLightboxCopy = lightbox?.collection === "scenes" ? t.scenes : t.campaign;
 
   useEffect(() => {
@@ -1092,6 +1156,11 @@ export function App() {
   };
   const moveAdRail = (direction) => {
     const rail = adRailRef.current;
+    if (!rail) return;
+    rail.scrollBy({ left: direction * rail.clientWidth * .82, behavior: "smooth" });
+  };
+  const moveCommerceRail = (direction) => {
+    const rail = commerceRailRef.current;
     if (!rail) return;
     rail.scrollBy({ left: direction * rail.clientWidth * .82, behavior: "smooth" });
   };
@@ -1284,6 +1353,31 @@ export function App() {
                   <span className="campaign-zoom-label"><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.campaign.enlarge}</span>
                 </button>
                 <figcaption><span>{image.caption}</span><span>{String(index + 1).padStart(2, "0")} / {String(adImages.length).padStart(2, "0")}</span></figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        <div className="campaign-subsection campaign-commerce-subsection" id="commerce-visuals">
+          <div className="campaign-subsection-heading section-shell">
+            <div><span>03</span><h3>{t.campaign.commerceLabel}</h3></div>
+            <p>{t.campaign.commerceBody}</p>
+            <div className="campaign-rail-meta">
+              <span>{String(commerceProductGroups.length).padStart(2, "0")} / {t.campaign.series} · {String(commerceImages.length).padStart(2, "0")} / {t.campaign.assets}</span>
+              <div className="campaign-rail-controls">
+                <button type="button" onClick={() => moveCommerceRail(-1)} aria-label={t.campaign.previousCommerce}><ArrowLeft weight="light" aria-hidden="true" /></button>
+                <button type="button" onClick={() => moveCommerceRail(1)} aria-label={t.campaign.nextCommerce}><ArrowRight weight="light" aria-hidden="true" /></button>
+              </div>
+            </div>
+          </div>
+          <div className="campaign-commerce-rail" ref={commerceRailRef} aria-label={t.campaign.commerceLabel}>
+            {commerceImages.map((image, index) => (
+              <figure key={image.src}>
+                <button className="campaign-image-button" type="button" onClick={() => setLightbox({ collection: "commerce", index })} aria-label={`${t.campaign.enlarge}: ${image.caption}`}>
+                  <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+                  <span className="campaign-zoom-label"><MagnifyingGlassPlus weight="light" aria-hidden="true" />{t.campaign.enlarge}</span>
+                </button>
+                <figcaption><span>{image.caption}</span><span>{String(index + 1).padStart(2, "0")} / {String(commerceImages.length).padStart(2, "0")}</span></figcaption>
               </figure>
             ))}
           </div>

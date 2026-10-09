@@ -776,7 +776,8 @@ figcaption { display: flex; justify-content: space-between; margin-top: 11px; fo
   cursor: zoom-in;
 }
 .campaign-banner-asset img,
-.campaign-ad-rail img {
+.campaign-ad-rail img,
+.campaign-commerce-rail img {
   display: block;
   width: 100%;
   object-fit: cover;
@@ -795,6 +796,25 @@ figcaption { display: flex; justify-content: space-between; margin-top: 11px; fo
   scroll-padding-inline: 14px;
   scrollbar-width: thin;
 }
+.campaign-commerce-rail {
+  display: flex;
+  gap: 1px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+  background: rgba(7,7,7,.24);
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 14px;
+  scrollbar-width: thin;
+}
+.campaign-commerce-rail figure {
+  flex: 0 0 clamp(280px, 27vw, 440px);
+  min-width: 0;
+  margin: 0;
+  padding: 14px;
+  background: var(--paper);
+  scroll-snap-align: start;
+}
+.campaign-commerce-rail img { aspect-ratio: 1; object-fit: contain; background: #fff; }
 .campaign-ad-rail figure { flex: 0 0 clamp(250px, 22vw, 360px); scroll-snap-align: start; }
 .campaign-ad-rail img { aspect-ratio: 4 / 5; }
 .campaign-rail-meta { display: flex; align-items: flex-end; gap: 18px; }
@@ -837,7 +857,8 @@ figcaption { display: flex; justify-content: space-between; margin-top: 11px; fo
 .campaign-image-button:hover .campaign-zoom-label,
 .campaign-image-button:focus-visible .campaign-zoom-label { opacity: 1; transform: translateY(0); }
 .campaign-banner-asset figcaption,
-.campaign-ad-rail figcaption { color: #5f5b56; }
+.campaign-ad-rail figcaption,
+.campaign-commerce-rail figcaption { color: #5f5b56; }
 
 .image-lightbox {
   position: fixed;
@@ -1512,6 +1533,8 @@ footer a:last-child { display: inline-flex; align-items: center; gap: 8px; }
   .campaign-banner-asset.is-mobile { width: min(100%, 390px); justify-self: center; }
   .campaign-ad-rail { gap: 12px; padding: 0 24px 18px; background: transparent; }
   .campaign-ad-rail figure { flex-basis: min(78vw, 390px); padding: 12px; border: 1px solid rgba(7,7,7,.16); }
+  .campaign-commerce-rail { gap: 12px; padding: 0 24px 18px; background: transparent; }
+  .campaign-commerce-rail figure { flex-basis: min(82vw, 420px); padding: 12px; border: 1px solid rgba(7,7,7,.16); }
   .campaign-zoom-label { opacity: 1; transform: none; }
   .image-lightbox { grid-template-columns: 1fr 1fr; align-content: center; padding: 74px 18px 24px; }
   .image-lightbox > figure { grid-column: 1 / -1; grid-row: 1; }
@@ -1595,6 +1618,11 @@ html[lang="zh-CN"] .brochure-heading h2 {
 
 html[lang="zh-CN"] .drawer-chapters strong { font-size: 23px; letter-spacing: .01em; }
 html[lang="zh-CN"] .drawer-detail h3 { font-size: clamp(36px, 4.4vw, 52px); line-height: 1.12; }
+
+@media (max-width: 700px) {
+  html:not([lang="zh-CN"]) .hero h1 { font-size: clamp(68px, 22vw, 94px); }
+  html[lang="zh-CN"] .hero h1 { font-size: clamp(56px, 16.5vw, 72px); line-height: .9; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
